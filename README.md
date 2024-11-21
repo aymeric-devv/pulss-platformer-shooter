@@ -1,2 +1,2 @@
-# Platformer shooter game made with godot 
+# ⚡ Platformer shooter game  
 
