@@ -1,6 +1,5 @@
 # ⚡ Platformer shooter game  
-It's the repo of a game made with Godot. I'm a young developper and I have a youtube channel,
-it's one of my first wich I create. 
+It's the repo of my first game wich I'm creating with Godot Engine.
 ## 🤨 What is it ? 
 It's a platformer shooter game with cats.
 **MORE** If your need more informations or you just like the project, you can go to my Youtube channel (url here) 
