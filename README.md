@@ -1,5 +1,5 @@
 # ⚡ Platformer shooter game 
-#### *A platformer shooter game with original gameplay*
+####     *"A platformer shooter game with original gameplay"*
 ## 📜 Features
 - **Movements** based on weapons
 - **Characters** are cats
