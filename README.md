@@ -1,23 +1,25 @@
-<div style="text-align: center;">
-
 # ⚡ Platformer shooter game 
+
 > ### *A platformer shooter game with original gameplay*
+
 ## 📜 Features
 - **Movements** based on weapons
 - **Characters** are cats
 - **Fast** platformer
 - **Community** maps
+
 ## 📸 Preview
 (coming soon)
-## ✅ How to play
+
+## 💾 How to play
 
 #### First, install it
 
 #### Now, launch it
 
-### Basics movements & gameplay
+#### Basics movements & gameplay
 > [!TIP]
 > (coming soon)
+
 ## 💬 Questions
 
-</div>
