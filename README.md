@@ -14,5 +14,6 @@
 ### Now, launch it
 
 ### Basics movements & gameplay
-
+> [!TIP]
+> (coming soon)
 ## 💬 Questions
