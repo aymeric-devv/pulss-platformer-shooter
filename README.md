@@ -3,7 +3,7 @@
 > ### *A platformer shooter game with original gameplay*
 
 ## 📜 Features
-- **Movements** based on weapons
+- **Movements** based on the shoot of your weapon
 - **Characters** are cats
 - **Fast** platformer
 - **Community** maps
