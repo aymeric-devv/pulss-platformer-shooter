@@ -1,3 +1,5 @@
+<div style="text-align: center;">
+
 # ⚡ Platformer shooter game 
 > ### *A platformer shooter game with original gameplay*
 ## 📜 Features
@@ -17,3 +19,5 @@
 > [!TIP]
 > (coming soon)
 ## 💬 Questions
+
+</div>
