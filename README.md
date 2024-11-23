@@ -9,9 +9,9 @@
 (coming soon)
 ## ✅ How to play
 
-### First, install it
+#### First, install it
 
-### Now, launch it
+#### Now, launch it
 
 ### Basics movements & gameplay
 > [!TIP]
