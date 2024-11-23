@@ -1,17 +1,18 @@
-# ⚡ Platformer shooter game  
-It's the repo of my first game wich I'm creating with Godot Engine.
-## 🤨 What is it ? 
-It's a platformer shooter game with cats.
+# ⚡ Platformer shooter game 
+#### *A platformer shooter game with original gameplay*
+## 📜 Features
+- **Movements** based on weapons
+- **Characters** are cats
+- **Fast** platformer
+- **Community** maps
+## 📸 Preview
+(coming soon)
+## ✅ How to play
 
-**MORE** 
+### First, install it
 
-If your need more informations or you just like the project, you can go to my Youtube channel (url here) 
-or join my discord server (url here).
-## ✅ How to install
-To install on your machine :
-- **Windows** :
-## 📸 Screenshot
+### Now, launch it
 
-## ✨ How to help the project
+### Basics movements & gameplay
 
-## ❓ FAQ
+## 💬 Questions
