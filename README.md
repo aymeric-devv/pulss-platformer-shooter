@@ -1,6 +1,6 @@
 # ⚡ Platformer shooter game 
 
-> ### *A platformer shooter game with original gameplay*
+> ### *"A platformer shooter game with an original gameplay"*
 
 ## 📜 Features
 - **Movements** based on the shoot of your weapon
