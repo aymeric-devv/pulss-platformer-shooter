@@ -10,13 +10,13 @@
 
 ## 📸 Preview
 (coming soon)
-
+![alt text]()
 ## 💾 How to play
 
 #### First, install it
 
 #### Now, launch it
-
+((
 #### Basics movements & gameplay
 > [!TIP]
 > (coming soon)
