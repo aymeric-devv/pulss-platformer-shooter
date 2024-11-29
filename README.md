@@ -9,17 +9,14 @@
 - **Community** maps
 
 ## 📸 Preview
-(coming soon)
-
+![alt text](preview/previewplatformer2.gif)
 ## 💾 How to play
 
 #### First, install it
 
 #### Now, launch it
-
-#### Basics movements & gameplay
 > [!TIP]
-> (coming soon)
+> **You can watch the wiki, for mecanics and all of things wich you can learn about the game.**
 
 ## 💬 Questions
 
