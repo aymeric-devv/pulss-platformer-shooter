@@ -11,8 +11,10 @@
 ## 📸 Preview
 ![alt text](preview/previewplatformer2.gif)
 ## 💾 How to play
-
+You can play with the `arrow` of your keyboard and you can jump with `space`.
 #### First, install it
+To install the last version, you need to:
+1. Go to realease section on the right of th github page.
 
 #### Now, launch it
 > [!TIP]
