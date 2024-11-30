@@ -9,6 +9,7 @@
 - **Community** maps
 
 ## 📸 Preview
+*Go to `preview` folder to watch more preview !*
 ![alt text](preview/previewplatformer2.gif)
 ## 💾 How to play
 You can play with the `arrow` of your keyboard and you can jump with `space`.
