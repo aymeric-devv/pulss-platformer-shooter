@@ -1,4 +1,4 @@
-# ⚡ Platformer shooter game 
+# ⚡ Platformer shooter game (name will be "juxxta" or "pulss")
 
 > ### *"A platformer shooter game with an original gameplay"*
 
