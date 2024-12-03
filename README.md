@@ -54,5 +54,12 @@ You can download it where you want.*
 
 ## 💬 Questions
 
+# 💌 Thanks
+#### **To Ethlen**, 
+for cats animations :
+https://elthen.itch.io/2d-pixel-art-cat-sprites
 
+#### To Adamatomic, 
+for the tilset : 
+https://adamatomic.itch.io/mc-caves
 
