@@ -297,13 +297,13 @@ animations = [{
 "duration": 1.5,
 "texture": SubResource("AtlasTexture_wro0l")
 }, {
-"duration": 2.0,
+"duration": 1.5,
 "texture": SubResource("AtlasTexture_mxa88")
 }, {
-"duration": 1.0,
+"duration": 0.75,
 "texture": SubResource("AtlasTexture_fps84")
 }, {
-"duration": 0.7,
+"duration": 0.25,
 "texture": SubResource("AtlasTexture_igtwq")
 }],
 "loop": false,
@@ -380,7 +380,7 @@ script = ExtResource("1_loacj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
-animation = &"in-air"
+animation = &"jump"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

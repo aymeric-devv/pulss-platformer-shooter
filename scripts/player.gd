@@ -1,61 +1,76 @@
 extends CharacterBody2D
 
-@export var max_speed : int = 100
-@export var gravity : float = 20
-@export var jump_force : int = 225
-@export var acceleration : int = 50
-@export var jump_buffer_time : int  = 15
+@export var SPEED : int = 80
+@export var IN_AIR_SPEED : int = 60 #Custom in-air speed
+@export var jump_buffer_time : int  = 15 
 @export var cayote_time : int = 7
+@export var jump_height : float = 15
+@export var jump_time_to_peak : float = 0.25
+@export var jump_time_to_descent : float = 0.15
+
+@onready var jump_velocity : float = ((2.0 * jump_height)  / jump_time_to_peak) * -1.0
+@onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
+@onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var jump_buffer_counter : int = 0
 var cayote_counter : int = 0
 var player_state = "idle" #Store player state in a variable
-var idle_cooldown = 10 #A cooldown beetwen each idles animations
+var prev_player_state = "idle" #Store the old player state
+var idle_cooldown = 10.0 #A cooldown beetwen each idles animations
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var current_speed
 
-func _physics_process(_delta):
-	if not is_on_floor():
-		if cayote_counter > 0:
+func _physics_process(delta):
+	Engine.time_scale = 0.05
+	if not is_on_floor(): #If player is in air
+		current_speed = IN_AIR_SPEED #SSet the in-air speed
+		velocity.y += get_current_gravity() * delta #Add gravity in air
+		if cayote_counter > 0: #Counter for cayote time
 			cayote_counter -= 1
-		velocity.y += gravity
-		if velocity.y > 2000:
-			velocity.y = 2000
-			
-	if Input.is_action_pressed("move_right"): #Go right
-		velocity.x += acceleration
-		if is_on_floor() and player_state != "jumping": #If player isn't jumping to prevent animation conflict
-			animated_sprite.play("run") 
-		animated_sprite.flip_h = false
-		idle_cooldown = 10.0 #Reset the player idle cooldown
-	elif Input.is_action_pressed("move_left"): #Go left
-		velocity.x -= acceleration
-		if is_on_floor() and player_state != "jumping": #If player isn't jumping to prevent animation conflict
-			animated_sprite.play("run")
-		animated_sprite.flip_h = true
-		idle_cooldown = 10.0 #Reset the player idle cooldown
-	else: #No movements
-		velocity.x = lerp(velocity.x,0.0,0.2)
-		if is_on_floor() and player_state != "jumping": #If player isn't jumping to prevent animation conflict	 	
-			player_state = "idle"
-			idle_cooldown -= 0.01
-			if idle_cooldown > 9.5:
-				animated_sprite.play("wait") 
-			elif idle_cooldown > 3:
-				animated_sprite.play("idle")
-			else:
-				animated_sprite.play("sleep")
 		
-	if not is_on_floor() and player_state != "jumping":
-		animated_sprite.play("in-air")
-
-	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	var direction = Input.get_axis("move_left", "move_right") #Get the direction
+	if direction: #if player press a key
+		if is_on_floor():
+			if player_state != "jumping": #Play the annimation if player isn't jumping 
+				player_state = "run"
+				animated_sprite.play("run") 
+		else:
+			if player_state != "jumping":
+				player_state = "fly"
+				animated_sprite.play("jump2") 
+		if direction > 0: #Turn the player
+			animated_sprite.flip_h = false
+		else:
+			animated_sprite.flip_h = true
+		velocity.x = direction * current_speed
+		slow_friction(delta)
+		idle_cooldown = 10.0
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if is_on_floor():
+			if player_state != "jumping": #If player isn't jumping to prevent animation conflict	 	
+				player_state = "idle"
+				idle_cooldown -= 0.01
+				if idle_cooldown > 9.5:
+					animated_sprite.play("wait") 
+				elif idle_cooldown > 3:
+					animated_sprite.play("idle")
+				else:
+					animated_sprite.play("sleep")
+		else:
+			if player_state != "jumping":
+				player_state = "fall"
+				animated_sprite.play("in-air")
 	
-	if is_on_floor():
+	if is_on_floor(): #If player is on ground
+		current_speed = SPEED #Set the ground speed
 		cayote_counter = cayote_time
-		player_state = "nothing"
+		if player_state != "idle" and player_state != "run":
+			player_state = "nothing" #Set this variable after a jump to finish it
 		
-	if jump_buffer_counter > 0:
+	if jump_buffer_counter > 0: #Jump buffer counter
 		jump_buffer_counter -= 1
 		
 	if Input.is_action_just_pressed("jump"): #Look if player jump
@@ -63,13 +78,17 @@ func _physics_process(_delta):
 		
 	if jump_buffer_counter > 0 and cayote_counter > 0: #Jump 
 		player_state = "jumping"
-		idle_cooldown = 10.0 #Reset the player idle cooldown
-		if abs(velocity.x) == 100: #If player speed is high
-			animated_sprite.play("jump2") #Play a special jump animation
-		else:
-			animated_sprite.play("jump")
-		velocity.y = -jump_force
-		jump_buffer_counter = 0
-		cayote_counter = 0
+		idle_cooldown = 10.0 #Reset the player idle cooldown":			
+		animated_sprite.play("jump")
+		velocity.y = jump_velocity #Jump
+		jump_buffer_counter = 0 #Reset jump buffer
+		cayote_counter = 0 #Reset cayote time
+		
+	prev_player_state = player_state
 	move_and_slide()
 	
+func slow_friction(d):
+	velocity.x -= .02 * d
+
+func get_current_gravity():
+	return jump_gravity if velocity.y < 0.0 else fall_gravity
