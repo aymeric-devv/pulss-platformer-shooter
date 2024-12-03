@@ -1,4 +1,4 @@
-# ⚡ Platformer shooter game (name will be "juxtra" or "pulss") Puls$
+# ⚡ Platformer shooter game (name will be "juxtra" or "pulss") 
 
 > ### *"A platformer shooter game with an original gameplay"*
 
