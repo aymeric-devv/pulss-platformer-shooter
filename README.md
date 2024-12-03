@@ -1,22 +1,25 @@
-# ⚡ Platformer shooter game (name will be "juxtra" or "pulss")
+# ⚡ Platformer shooter game (name will be "juxtra" or "pulss") Puls$
 
 > ### *"A platformer shooter game with an original gameplay"*
 
 ## 📜 Features
 - **Movements** based on the shoot of your weapon
-- **Characters** are cats
+- **Characters** are cats with funny animations
 - **Fast** platformer
 - **Community** maps
 
 ## 📸 Preview
-*Go to `preview` folder to watch more preview !*
 
+*A sleep fonctionnality..*
 
-https://github.com/user-attachments/assets/c56274c2-045d-4414-983e-2a1a671584b7
+https://github.com/user-attachments/assets/ea72bb98-0ece-41c4-b42f-dcfdfac6fd93
 
+*Basic movements with animations..*
+
+https://github.com/user-attachments/assets/6710f0d6-b652-4579-88d9-57efdc0cc138
 
 ## 💾 How to play
-You can play with the `arrow` of your keyboard and you can jump with `space`.
+You can play with the `arrows` of your keyboard and you can jump with `space`.
 > [!IMPORTANT]
 > This tiny tutorial work for all version will be created.
 > 
