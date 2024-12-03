@@ -1,4 +1,4 @@
-# ⚡ Platformer shooter game (name will be "juxxta" or "pulss")
+# ⚡ Platformer shooter game (name will be "juxtra" or "pulss")
 
 > ### *"A platformer shooter game with an original gameplay"*
 
@@ -10,7 +10,11 @@
 
 ## 📸 Preview
 *Go to `preview` folder to watch more preview !*
-[alt text](/preview/preview2.mp4)
+
+
+https://github.com/user-attachments/assets/c56274c2-045d-4414-983e-2a1a671584b7
+
+
 ## 💾 How to play
 You can play with the `arrow` of your keyboard and you can jump with `space`.
 > [!IMPORTANT]
