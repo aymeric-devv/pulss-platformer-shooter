@@ -54,7 +54,7 @@ You can download it where you want.*
 
 ## 💬 Questions
 
-# 💌 Thanks
+## 💌 Thanks
 #### **To Ethlen**, 
 for cats animations :
 https://elthen.itch.io/2d-pixel-art-cat-sprites
