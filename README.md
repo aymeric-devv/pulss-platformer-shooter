@@ -46,7 +46,7 @@ You can download it where you want.*
 
 | Dates | What's added |
 |---|---|
-| 29.11.24 | Added very simple movements and animations. |
+| 30.11.24 -> 03.12.24 | Implemented better movements and the best jump. Added animations and a level. |
 ## 🛠 How to simply edit the project like you want
 
 ## 💬 Questions
