@@ -1,7 +1,8 @@
-[gd_scene load_steps=52 format=3 uid="uid://5y7286px3uym"]
+[gd_scene load_steps=53 format=3 uid="uid://5y7286px3uym"]
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
+[ext_resource type="PackedScene" uid="uid://dnw3c7jugvh8r" path="res://scenes/gun.tscn" id="3_e2klt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rerht"]
 atlas = ExtResource("1_epqn4")
@@ -382,8 +383,13 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
 animation = &"jump"
 autoplay = "idle"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 rotation = -1.56706
 shape = SubResource("CapsuleShape2D_i8k75")
+
+[node name="Gun" parent="." instance=ExtResource("3_e2klt")]
+position = Vector2(0, -4)

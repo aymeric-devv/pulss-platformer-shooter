@@ -23,7 +23,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_speed
 
 func _physics_process(delta):
-	Engine.time_scale = 0.05
 	if not is_on_floor(): #If player is in air
 		current_speed = IN_AIR_SPEED #SSet the in-air speed
 		velocity.y += get_current_gravity() * delta #Add gravity in air
