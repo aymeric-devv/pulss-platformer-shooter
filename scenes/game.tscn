@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://rq7jb3q5amfr"]
+[gd_scene load_steps=6 format=4 uid="uid://rq7jb3q5amfr"]
 
 [ext_resource type="PackedScene" uid="uid://5y7286px3uym" path="res://scenes/player.tscn" id="1_32i7l"]
 [ext_resource type="Texture2D" uid="uid://bnocfbx2auepr" path="res://assets/map/monochrome_tilemap_packed.png" id="2_6kfhl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0khax"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c7mt8"]
 texture = ExtResource("2_6kfhl")
@@ -612,6 +614,7 @@ texture = ExtResource("2_6kfhl")
 
 [sub_resource type="TileSet" id="TileSet_wnicy"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_0khax")
 sources/0 = SubResource("TileSetAtlasSource_c7mt8")
 
 [node name="Game" type="Node2D"]

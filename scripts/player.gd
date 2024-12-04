@@ -13,6 +13,9 @@ extends CharacterBody2D
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 @onready var animated_sprite: AnimatedSprite2D = $Animations
+@onready var bullets: Node2D = $Bullets #Where the bullets will be stored
+
+var bullet = preload("res://scenes/bullet_1.tscn") #Preload the bullet
 
 var jump_buffer_counter : int = 0
 var cayote_counter : int = 0
@@ -21,6 +24,7 @@ var prev_player_state = "idle" #Store the old player state
 var idle_cooldown = 10.0 #A cooldown beetwen each idles animations
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_speed
+var can_shoot = true #A bool to know if player can shoot
 
 func _physics_process(delta):
 	if not is_on_floor(): #If player is in air
@@ -83,11 +87,30 @@ func _physics_process(delta):
 		jump_buffer_counter = 0 #Reset jump buffer
 		cayote_counter = 0 #Reset cayote time
 		
-	prev_player_state = player_state
+	if Input.is_action_just_pressed("shoot"):
+		if can_shoot:
+			idle_cooldown = 10.0
+			shoot()
+			can_shoot = false
+			await get_tree().create_timer(0.2).timeout
+			can_shoot = true
+		
+		
+	prev_player_state = player_state	
 	move_and_slide()
 	
+		
 func slow_friction(d):
 	velocity.x -= .02 * d
 
 func get_current_gravity():
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
+
+func shoot(): #Shoot projectiles
+	var projectile = bullet.instantiate() #Prefab of projectile
+	var angle = $Gun/Tip.global_rotation #Set the rotation of the gun
+	projectile.position = $Gun/Tip.global_position
+	projectile.rotation = angle
+	get_tree().current_scene.add_child(projectile)
+	projectile.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 75) #TODO -> timer
+	

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8pe1mjfbccen"]
+
+[ext_resource type="Script" path="res://scenes/bullet_control_1.gd" id="1_pb7ko"]
+[ext_resource type="Texture2D" uid="uid://fbg4gwe4nkqa" path="res://assets/gun/bullet1.png" id="2_upymi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1hij2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkdjm"]
+size = Vector2(2, 1)
+
+[node name="RigidBody" type="RigidBody2D"]
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_1hij2")
+gravity_scale = 0.1
+script = ExtResource("1_pb7ko")
+
+[node name="Sprite2" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+texture = ExtResource("2_upymi")
+
+[node name="Hitbox2" type="CollisionShape2D" parent="."]
+position = Vector2(1, -0.5)
+shape = SubResource("RectangleShape2D_kkdjm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
