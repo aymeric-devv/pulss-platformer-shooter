@@ -1,11 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://5y7286px3uym"]
+[gd_scene load_steps=54 format=3 uid="uid://5y7286px3uym"]
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
-[ext_resource type="Script" path="res://scripts/gun.gd" id="3_tylyn"]
-[ext_resource type="Texture2D" uid="uid://b6smdj5b0a41i" path="res://assets/gun/gun1.png" id="4_ij8kj"]
-[ext_resource type="Script" path="res://scripts/bullet_1.gd" id="5_3d5n5"]
-[ext_resource type="Texture2D" uid="uid://fbg4gwe4nkqa" path="res://assets/gun/bullet1.png" id="5_oh1b3"]
+[ext_resource type="PackedScene" uid="uid://dnw3c7jugvh8r" path="res://scenes/gun.tscn" id="3_e2klt"]
+[ext_resource type="Script" path="res://scripts/hand.gd" id="3_uaoyn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rerht"]
 atlas = ExtResource("1_epqn4")
@@ -378,17 +376,14 @@ animations = [{
 radius = 3.99997
 height = 9.99993
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c02i"]
-size = Vector2(2, 1)
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_loacj")
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 position_smoothing_enabled = true
 
-[node name="Animations" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
 animation = &"jump"
@@ -396,31 +391,15 @@ autoplay = "idle"
 frame = 3
 frame_progress = 1.0
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 rotation = -1.56706
 shape = SubResource("CapsuleShape2D_i8k75")
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(4, -5)
+[node name="Hand" type="Node2D" parent="."]
+script = ExtResource("3_uaoyn")
 
-[node name="Gun" type="Node2D" parent="."]
-position = Vector2(-1, -5)
-script = ExtResource("3_tylyn")
+[node name="Gun" parent="Hand" instance=ExtResource("3_e2klt")]
+position = Vector2(0, -4)
 
-[node name="Sprite" type="Sprite2D" parent="Gun"]
-position = Vector2(5, 0)
-texture = ExtResource("4_ij8kj")
-
-[node name="Bullet1" type="Area2D" parent="Gun"]
-script = ExtResource("5_3d5n5")
-
-[node name="Skin" type="Sprite2D" parent="Gun/Bullet1"]
-position = Vector2(5, 0)
-texture = ExtResource("5_oh1b3")
-
-[node name="Hitbox" type="CollisionShape2D" parent="Gun/Bullet1"]
-position = Vector2(5, -0.5)
-shape = SubResource("RectangleShape2D_8c02i")
-
-[connection signal="body_entered" from="Gun/Bullet1" to="Gun/Bullet1" method="_on_body_entered"]
+[node name="Guns" type="Node2D" parent="Hand"]
