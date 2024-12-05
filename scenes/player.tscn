@@ -355,7 +355,7 @@ animations = [{
 "speed": 14.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_1ne5u")
 }],
 "loop": true,
@@ -363,7 +363,7 @@ animations = [{
 "speed": 6.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.3,
 "texture": SubResource("AtlasTexture_lvatw")
 }],
 "loop": true,
@@ -402,13 +402,6 @@ height = 9.99993
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_loacj")
-SPEED = null
-IN_AIR_SPEED = null
-jump_buffer_time = null
-cayote_time = null
-jump_height = null
-jump_time_to_peak = null
-jump_time_to_descent = null
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -417,7 +410,7 @@ position_smoothing_enabled = true
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
-animation = &"shoot_bullet_2"
+animation = &"shoot_bullet_1"
 autoplay = "idle"
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]

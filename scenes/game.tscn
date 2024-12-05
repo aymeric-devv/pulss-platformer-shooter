@@ -630,3 +630,10 @@ collision_visibility_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("1_32i7l")]
 position = Vector2(-13, -162)
+SPEED = 80
+IN_AIR_SPEED = 60
+jump_buffer_time = 15
+cayote_time = 7
+jump_height = 15.0
+jump_time_to_peak = 0.25
+jump_time_to_descent = 0.15

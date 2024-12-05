@@ -39,7 +39,12 @@ func _process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 func _physics_process(delta):
-	if not is_on_floor(): #If player is in air
+	if is_on_floor(): #If player is in air
+		current_speed = SPEED #Set the ground speed
+		cayote_counter = cayote_time
+		if player_state != "idle" and player_state != "run" and player_state != "shooting":
+			player_state = "nothing" #Set this variable after a jump to finish it
+	else:
 		current_speed = IN_AIR_SPEED #SSet the in-air speed
 		velocity.y += get_current_gravity() * delta #Add gravity in air
 		if cayote_counter > 0: #Counter for cayote time
@@ -49,8 +54,9 @@ func _physics_process(delta):
 	if direction: #if player press a key
 		if is_on_floor(): #If player moves on floor
 			if player_state != "jumping": #Play the annimation if player isn't jumping 
-				player_state = "run"
-				play_animation("run")
+				if player_state != "shooting":
+					player_state = "run"
+					play_animation("run")
 		else: #Else
 			if player_state != "jumping":
 				player_state = "fly" #Play fly animation
@@ -85,26 +91,24 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("bullet_1_shoot"): #Shooting
 		if can_shoot_bullet_1:
 			player_state = "shooting"
-			shoot_bullet_1()
 			idle_cooldown = 10.0
+			play_animation("shoot_bullet_1")
+			shoot_bullet_1()
 			can_shoot_bullet_1 = false
 			await get_tree().create_timer(0.5).timeout
 			can_shoot_bullet_1 = true
+			player_state = "nothing"
 			
 	if Input.is_action_just_pressed("bullet_2_shoot"): #Shooting
 		if can_shoot_bullet_2:
 			player_state = "shooting"
-			shoot_bullet_2()
 			idle_cooldown = 10.0
+			play_animation("shoot_bullet_2")
+			shoot_bullet_2()
 			can_shoot_bullet_2 = false
 			await get_tree().create_timer(0.3).timeout
 			can_shoot_bullet_2 = true
-			
-	if is_on_floor(): #If player is on ground
-		current_speed = SPEED #Set the ground speed
-		cayote_counter = cayote_time
-		if player_state != "idle" and player_state != "run":
-			player_state = "nothing" #Set this variable after a jump to finish it
+			player_state = "nothing"
 		
 	if jump_buffer_counter > 0: #Jump buffer counter
 		jump_buffer_counter -= 1
@@ -113,16 +117,9 @@ func _physics_process(delta):
 		jump_buffer_counter = jump_buffer_time #Set buffer time
 		
 	if jump_buffer_counter > 0 and cayote_counter > 0: #Jump 
-		player_state = "jumping"
-		idle_cooldown = 10.0 #Reset the player idle cooldown
-		play_animation("jump")
-		velocity.y = jump_velocity #Jump
-		jump_buffer_counter = 0 #Reset jump buffer
-		cayote_counter = 0 #Reset cayote time
+		jump()
 		
-			
 	prev_player_state = player_state
-	print(player_state)
 	move_and_slide()
 	
 func slow_friction(d):
@@ -137,18 +134,27 @@ func shoot_bullet_1(): #Shoot projectiles
 	bullet_1.position = $Gun/Tip.global_position
 	bullet_1.rotation = angle
 	get_tree().current_scene.add_child(bullet_1)
-	play_animation("shoot_bullet_1")
 	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 75) 
 	
 func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
 	bullet_2.position = $Gun/Tip.global_position
 	get_tree().current_scene.add_child(bullet_2)
-	play_animation("shoot_bullet_2")
 	bullet_2.apply_central_force(Vector2(0, 0.5))
 
 func play_animation(animation):
+	#print(animation)
 	animated_sprite.play(animation)
 	prev_animation = animation
 
-func jump()
+func jump():
+	player_state = "jumping"
+	idle_cooldown = 10.0 #Reset the player idle cooldown
+	play_animation("jump")
+	velocity.y = jump_velocity #Jump
+	jump_buffer_counter = 0 #Reset jump buffer
+	cayote_counter = 0 #Reset cayote time
+
+func get_player_state():
+	return player_state
+	
