@@ -173,13 +173,13 @@ region = Rect2(192, 128, 32, 32)
 atlas = ExtResource("1_epqn4")
 region = Rect2(224, 128, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_aoubk"]
+atlas = ExtResource("1_epqn4")
+region = Rect2(32, 224, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ne5u"]
 atlas = ExtResource("1_epqn4")
 region = Rect2(64, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lvatw"]
-atlas = ExtResource("1_epqn4")
-region = Rect2(96, 224, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4nxp1"]
 atlas = ExtResource("1_epqn4")
@@ -356,19 +356,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_aoubk")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1ne5u")
 }],
-"loop": true,
-"name": &"shoot_bullet_1",
+"loop": false,
+"name": &"shoot",
 "speed": 6.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lvatw")
-}],
-"loop": true,
-"name": &"shoot_bullet_2",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -402,13 +397,6 @@ height = 9.99993
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_loacj")
-SPEED = null
-IN_AIR_SPEED = null
-jump_buffer_time = null
-cayote_time = null
-jump_height = null
-jump_time_to_peak = null
-jump_time_to_descent = null
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
@@ -417,8 +405,10 @@ position_smoothing_enabled = true
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
-animation = &"shoot_bullet_2"
+animation = &"shoot"
 autoplay = "idle"
+frame = 1
+frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)

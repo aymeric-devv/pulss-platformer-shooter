@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://70brbdntmv0l"]
+
+[ext_resource type="Texture2D" uid="uid://bxhctq2gokr20" path="res://assets/gun/bullet_2.png" id="1_bode0"]
+[ext_resource type="Script" path="res://scripts/bullet_control_2.gd" id="1_gf4wh"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ibkn5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tbgsg"]
+radius = 1.0
+height = 12.0
+
+[node name="Bullet 2" type="RigidBody2D"]
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_ibkn5")
+gravity_scale = 0.01
+contact_monitor = true
+max_contacts_reported = 50
+script = ExtResource("1_gf4wh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = ExtResource("1_bode0")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+rotation = 1.5708
+scale = Vector2(0.5, 0.4)
+shape = SubResource("CapsuleShape2D_tbgsg")
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
