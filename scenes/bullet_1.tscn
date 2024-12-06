@@ -7,8 +7,8 @@
 friction = 0.5
 bounce = 0.5
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkdjm"]
-size = Vector2(2, 2)
+[sub_resource type="CircleShape2D" id="CircleShape2D_4m0wa"]
+radius = 2.0
 
 [node name="Bullet 1" type="RigidBody2D"]
 mass = 0.001
@@ -22,6 +22,7 @@ script = ExtResource("1_pb7ko")
 texture = ExtResource("2_upymi")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_kkdjm")
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CircleShape2D_4m0wa")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

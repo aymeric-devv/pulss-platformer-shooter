@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://5y7286px3uym"]
+[gd_scene load_steps=58 format=3 uid="uid://5y7286px3uym"]
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
@@ -173,9 +173,17 @@ region = Rect2(192, 128, 32, 32)
 atlas = ExtResource("1_epqn4")
 region = Rect2(224, 128, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ne5u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg825"]
+atlas = ExtResource("1_epqn4")
+region = Rect2(32, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n45ud"]
 atlas = ExtResource("1_epqn4")
 region = Rect2(64, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw7gn"]
+atlas = ExtResource("1_epqn4")
+region = Rect2(96, 224, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvatw"]
 atlas = ExtResource("1_epqn4")
@@ -355,10 +363,16 @@ animations = [{
 "speed": 14.0
 }, {
 "frames": [{
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_1ne5u")
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_eg825")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_n45ud")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_dw7gn")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot_bullet_1",
 "speed": 6.0
 }, {
@@ -404,7 +418,7 @@ height = 9.99993
 script = ExtResource("1_loacj")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
@@ -412,6 +426,8 @@ position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
 animation = &"shoot_bullet_1"
 autoplay = "idle"
+frame = 2
+frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
@@ -429,3 +445,5 @@ texture = ExtResource("4_ij8kj")
 [node name="Tip" type="Marker2D" parent="Gun"]
 position = Vector2(6, 0)
 rotation = -0.00319641
+
+[node name="Bullets" type="Node2D" parent="."]

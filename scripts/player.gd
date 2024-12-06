@@ -13,7 +13,7 @@ extends CharacterBody2D
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 
 @onready var animated_sprite: AnimatedSprite2D = $Animations
-@onready var bullets: Node2D = $Bullets #Where the bullets will be stored
+@onready var bullets: Node2D = $Bullets  #Where the bullets will be stored
 
 var BULLET_1 = preload("res://scenes/bullet_1.tscn") #Preload the bullet 1
 var BULLET_2 = preload("res://scenes/bullet_2.tscn") #Preload the bullet 2
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
 		mouse_mod = !mouse_mod
 	if mouse_mod:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED_HIDDEN)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
@@ -81,6 +81,7 @@ func _physics_process(delta):
 				elif idle_cooldown > 3:
 					play_animation("idle")
 				else:
+					player_state = "sleeping"
 					play_animation("sleep")
 					
 		else: #Else, if player doesn't move in air
@@ -134,7 +135,7 @@ func shoot_bullet_1(): #Shoot projectiles
 	bullet_1.position = $Gun/Tip.global_position
 	bullet_1.rotation = angle
 	get_tree().current_scene.add_child(bullet_1)
-	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 75) 
+	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 150) 
 	
 func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
