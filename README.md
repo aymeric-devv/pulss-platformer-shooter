@@ -10,13 +10,14 @@
 
 ## 📸 Preview
 
-*A sleep fonctionnality..*
+
+
+https://github.com/user-attachments/assets/09889298-f748-4bfb-9d1c-58ebae0ed3d3
+
+
 
 https://github.com/user-attachments/assets/ea72bb98-0ece-41c4-b42f-dcfdfac6fd93
 
-*Basic movements with animations..*
-
-https://github.com/user-attachments/assets/6710f0d6-b652-4579-88d9-57efdc0cc138
 
 ## 💾 How to play
 You can play with the `arrows` of your keyboard and you can jump with `space`.
