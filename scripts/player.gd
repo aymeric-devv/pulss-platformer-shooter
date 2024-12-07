@@ -1,5 +1,5 @@
 extends CharacterBody2D
-#test
+
 @export var SPEED : int = 80
 @export var IN_AIR_SPEED : int = 60 #Custom in-air speed
 @export var jump_buffer_time : int  = 15 
@@ -141,7 +141,7 @@ func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
 	bullet_2.position = $Gun/Tip.global_position
 	get_tree().current_scene.add_child(bullet_2)
-	bullet_2.apply_central_force(Vector2(0, 0.5))
+	bullet_2.apply_central_force(Vector2(0, 1))
 
 func play_animation(animation):
 	#print(animation)
