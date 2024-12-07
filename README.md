@@ -1,12 +1,12 @@
-# ⚡ Platformer shooter game (name will be "juxtra" or "pulss") 
-
-> ### *"A platformer shooter game with an original gameplay"*
+# ⚡ Pulss
+> ### *"Your free, open-source and original platformer shooter game"*
 
 ## 📜 Features
-- **Movements** based on the shoot of your weapon
+- **God bridge** mechanic
 - **Characters** are cats with funny animations
 - **Fast** platformer
-- **Community** maps
+- Original **weapons**
+- (Coming soon) **Community** maps
 
 ## 📸 Preview
 
@@ -50,6 +50,7 @@ You can download it where you want.*
 
 | Dates | What's added |
 |---|---|
+| 04.12.24 -> 07.12.24 | Added weapons, a bridge mechanic and the home level with a playground. |
 | 30.11.24 -> 03.12.24 | Implemented better movements and the best jump. Added animations and a level. |
 ## 🛠 How to simply edit the project like you want
 
