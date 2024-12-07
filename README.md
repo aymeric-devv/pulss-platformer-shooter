@@ -7,9 +7,11 @@
 - **Fast** platformer
 - Original **weapons**
 - (Coming soon) **Community** maps
+- **Sleep** functionnality
 
 ## 📸 Preview
 
+![previewpng](https://github.com/user-attachments/assets/ffcbf5d3-ad6f-4eb7-8476-c6251162c2e4)
 
 
 https://github.com/user-attachments/assets/09889298-f748-4bfb-9d1c-58ebae0ed3d3
