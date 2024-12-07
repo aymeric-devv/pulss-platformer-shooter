@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+#test
 @export var SPEED : int = 80
 @export var IN_AIR_SPEED : int = 60 #Custom in-air speed
 @export var jump_buffer_time : int  = 15 
