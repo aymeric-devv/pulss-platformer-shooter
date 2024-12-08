@@ -702,6 +702,6 @@ scale = Vector2(0.03, 0.03)
 texture = ExtResource("8_rq37w")
 
 [node name="TrainingZone" type="Sprite2D" parent="Decoration"]
-position = Vector2(28, 127)
+position = Vector2(16, 436)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("9_ihca4")
