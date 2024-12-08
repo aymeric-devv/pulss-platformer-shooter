@@ -418,6 +418,7 @@ height = 9.99993
 script = ExtResource("1_loacj")
 
 [node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, -29)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
