@@ -12,7 +12,7 @@ height = 20.0
 [node name="Bullet 2" type="RigidBody2D"]
 mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_ibkn5")
-gravity_scale = 0.01
+gravity_scale = -0.01
 contact_monitor = true
 max_contacts_reported = 50
 script = ExtResource("1_gf4wh")
