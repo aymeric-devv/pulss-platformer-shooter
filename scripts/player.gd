@@ -107,7 +107,7 @@ func _physics_process(delta):
 			play_animation("shoot_bullet_2")
 			shoot_bullet_2()
 			can_shoot_bullet_2 = false
-			await get_tree().create_timer(0.3).timeout
+			await get_tree().create_timer(0.15).timeout
 			can_shoot_bullet_2 = true
 			player_state = "nothing"
 		
@@ -159,3 +159,5 @@ func jump():
 func get_player_state():
 	return player_state
 	
+func set_player_position(position):
+	global_position = position
