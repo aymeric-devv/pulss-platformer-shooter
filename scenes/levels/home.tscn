@@ -656,8 +656,11 @@ tile_set = SubResource("TileSet_5xb2a")
 collision_visibility_mode = 2
 
 [node name="Decoration" type="Node2D" parent="."]
+<<<<<<< Updated upstream
 
 [node name="Labels" type="Node2D" parent="Decoration"]
 
 [node name="Images" type="Node2D" parent="Decoration"]
 position = Vector2(0, -8)
+=======
+>>>>>>> Stashed changes
