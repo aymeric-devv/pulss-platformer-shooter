@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4cbc3bm86ffe"]
+[gd_scene load_steps=7 format=4 uid="uid://d4cbc3bm86ffe"]
 
 [ext_resource type="Texture2D" uid="uid://bnocfbx2auepr" path="res://assets/map/monochrome_tilemap_packed.png" id="1_h4rci"]
+[ext_resource type="Texture2D" uid="uid://drdqqkpfdhj4x" path="res://assets/images/pulss.png" id="2_jr6ly"]
+[ext_resource type="Texture2D" uid="uid://2nesw7a7xpsh" path="res://assets/images/version.png" id="3_k21e5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0khax"]
 
@@ -652,8 +654,18 @@ position = Vector2(-13, -162)
 
 [node name="Ground" type="TileMapLayer" parent="Tiles"]
 position = Vector2(13, 162)
-tile_map_data = PackedByteArray(0, 0, 78, 0, 230, 255, 0, 0, 15, 0, 6, 0, 0, 0)
+tile_map_data = PackedByteArray("AABOAOb/AAAPAAYAAAACAAAAAAARABAAAAD9/wAAAAAPABAAAAD+/wAAAAAQABAAAAD//wAAAAAQABAAAAAAAAAAAAAQABAAAAABAAAAAAAQABAAAAA=")
 tile_set = SubResource("TileSet_5xb2a")
 collision_visibility_mode = 2
 
 [node name="Decoration" type="Node2D" parent="."]
+
+[node name="Pulss" type="Sprite2D" parent="."]
+position = Vector2(4, -63)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_jr6ly")
+
+[node name="Version" type="Sprite2D" parent="."]
+position = Vector2(42, -60)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("3_k21e5")
