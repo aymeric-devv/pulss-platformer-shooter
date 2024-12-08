@@ -141,7 +141,7 @@ func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
 	bullet_2.position = $Gun/Tip.global_position
 	get_tree().current_scene.add_child(bullet_2)
-	bullet_2.apply_central_force(Vector2(0, 1))
+	bullet_2.apply_central_force(Vector2(0, 0.5))
 
 func play_animation(animation):
 	#print(animation)
