@@ -1,9 +1,17 @@
-[gd_scene load_steps=58 format=3 uid="uid://5y7286px3uym"]
+[gd_scene load_steps=60 format=3 uid="uid://5y7286px3uym"]
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="3_tylyn"]
 [ext_resource type="Texture2D" uid="uid://b6smdj5b0a41i" path="res://assets/gun/gun1.png" id="4_ij8kj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjbl6"]
+atlas = ExtResource("1_epqn4")
+region = Rect2(32, 304, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxojd"]
+atlas = ExtResource("1_epqn4")
+region = Rect2(64, 304, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rerht"]
 atlas = ExtResource("1_epqn4")
@@ -211,6 +219,17 @@ region = Rect2(128, 128, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_14gas"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjbl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxojd")
+}],
+"loop": true,
+"name": &"degats",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rerht")
@@ -425,10 +444,9 @@ position_smoothing_enabled = true
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
-animation = &"shoot_bullet_1"
+animation = &"degats"
 autoplay = "idle"
-frame = 2
-frame_progress = 1.0
+frame_progress = 0.504229
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)

@@ -28,7 +28,7 @@ var current_speed
 var can_shoot_bullet_1 = true #A bool to know if player can shoot the bullet 1
 var can_shoot_bullet_2 = true #A bool to know if player can shoot the bullet 2
 var mouse_mod = true #Hide the cursor by default
-var prev_animation
+var prev_animations
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
@@ -89,6 +89,7 @@ func _physics_process(delta):
 				player_state = "fall"
 				play_animation("in-air") #Play in air animation
 	
+		
 	if Input.is_action_just_pressed("bullet_1_shoot"): #Shooting
 		if can_shoot_bullet_1:
 			player_state = "shooting"
@@ -146,7 +147,7 @@ func shoot_bullet_2():
 func play_animation(animation):
 	#print(animation)
 	animated_sprite.play(animation)
-	prev_animation = animation
+	prev_animations = animation
 
 func jump():
 	player_state = "jumping"
