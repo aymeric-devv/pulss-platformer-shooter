@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @export var SPEED : int = 80
 @export var IN_AIR_SPEED : int = 60 #Custom in-air speed
-@export var jump_buffer_time : int  = 15 
-@export var cayote_time : int = 7
+@export var jump_buffer_time : int  = 20 
+@export var cayote_time : int = 15
 @export var jump_height : float = 15
 @export var jump_time_to_peak : float = 0.25
 @export var jump_time_to_descent : float = 0.15
@@ -28,7 +28,7 @@ var current_speed
 var can_shoot_bullet_1 = true #A bool to know if player can shoot the bullet 1
 var can_shoot_bullet_2 = true #A bool to know if player can shoot the bullet 2
 var mouse_mod = true #Hide the cursor by default
-var prev_animation
+var prev_animations
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
@@ -89,6 +89,7 @@ func _physics_process(delta):
 				player_state = "fall"
 				play_animation("in-air") #Play in air animation
 	
+		
 	if Input.is_action_just_pressed("bullet_1_shoot"): #Shooting
 		if can_shoot_bullet_1:
 			player_state = "shooting"
@@ -107,7 +108,7 @@ func _physics_process(delta):
 			play_animation("shoot_bullet_2")
 			shoot_bullet_2()
 			can_shoot_bullet_2 = false
-			await get_tree().create_timer(0.3).timeout
+			await get_tree().create_timer(0.15).timeout
 			can_shoot_bullet_2 = true
 			player_state = "nothing"
 		
@@ -141,12 +142,12 @@ func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
 	bullet_2.position = $Gun/Tip.global_position
 	get_tree().current_scene.add_child(bullet_2)
-	bullet_2.apply_central_force(Vector2(0, 0.5))
+	bullet_2.apply_central_force(Vector2(0, 0.1))
 
 func play_animation(animation):
 	#print(animation)
 	animated_sprite.play(animation)
-	prev_animation = animation
+	prev_animations = animation
 
 func jump():
 	player_state = "jumping"
@@ -159,3 +160,5 @@ func jump():
 func get_player_state():
 	return player_state
 	
+func set_player_position(position):
+	global_position = position
