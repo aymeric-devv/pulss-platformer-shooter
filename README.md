@@ -1,6 +1,10 @@
 # ⚡ Pulss
 > ### *"Your free, open-source and original platformer shooter game"*
 
+>  [!IMPORTANT]
+> **Play to this game in your browser in Itch.io !**  
+> Click here : *https://aymeric-devv.itch.io/pulss-platformer-shooter*
+>
 ## 📜 Features
 - **God bridge** mechanic
 - **Characters** are cats with funny animations
