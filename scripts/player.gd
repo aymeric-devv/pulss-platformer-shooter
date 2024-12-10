@@ -14,6 +14,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $Animations
 @onready var bullets: Node2D = $Bullets  #Where the bullets will be stored
+@onready var camera: Camera2D = $Camera #Get camera for camera effect like shake
 
 var BULLET_1 = preload("res://scenes/bullet_1.tscn") #Preload the bullet 1
 var BULLET_2 = preload("res://scenes/bullet_2.tscn") #Preload the bullet 2
@@ -29,6 +30,8 @@ var can_shoot_bullet_1 = true #A bool to know if player can shoot the bullet 1
 var can_shoot_bullet_2 = true #A bool to know if player can shoot the bullet 2
 var mouse_mod = true #Hide the cursor by default
 var prev_animations
+var prev_state #Bool, true -> player is on floor false -> player not on floor
+var checkpoint
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
@@ -39,6 +42,9 @@ func _process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 func _physics_process(delta):
+	if !prev_state and is_on_floor(): #Check if player land to the floor
+		camera.start_shake(0.75, 1.0, 15) #Shake the camera
+		
 	if is_on_floor(): #If player is in air
 		current_speed = SPEED #Set the ground speed
 		cayote_counter = cayote_time
@@ -81,7 +87,6 @@ func _physics_process(delta):
 				elif idle_cooldown > 3:
 					play_animation("idle")
 				else:
-					player_state = "sleeping"
 					play_animation("sleep")
 					
 		else: #Else, if player doesn't move in air
@@ -94,6 +99,7 @@ func _physics_process(delta):
 		if can_shoot_bullet_1:
 			player_state = "shooting"
 			idle_cooldown = 10.0
+			camera.start_shake(0.75, 1.0, 10) #Start a camera shake
 			play_animation("shoot_bullet_1")
 			shoot_bullet_1()
 			can_shoot_bullet_1 = false
@@ -105,6 +111,7 @@ func _physics_process(delta):
 		if can_shoot_bullet_2:
 			player_state = "shooting"
 			idle_cooldown = 10.0
+			camera.start_shake(0.5, 0.5, 30)
 			play_animation("shoot_bullet_2")
 			shoot_bullet_2()
 			can_shoot_bullet_2 = false
@@ -122,6 +129,7 @@ func _physics_process(delta):
 		jump()
 		
 	prev_player_state = player_state
+	prev_state = is_on_floor()
 	move_and_slide()
 	
 func slow_friction(d):
@@ -162,3 +170,10 @@ func get_player_state():
 	
 func set_player_position(position):
 	global_position = position
+	
+func died():
+	print("player died")
+	global_position = checkpoint
+
+func set_checkpoint(where):
+	checkpoint = where
