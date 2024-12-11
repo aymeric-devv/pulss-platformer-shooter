@@ -10,7 +10,7 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_4m0wa"]
 radius = 2.0
 
-[node name="Bullet 1" type="RigidBody2D"]
+[node name="Bullet 1" type="RigidBody2D" groups=["bullet"]]
 mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_1hij2")
 gravity_scale = 0.1

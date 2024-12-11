@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 [global_group]
 
 player="The player group"
+bullet=""
 
 [input]
 

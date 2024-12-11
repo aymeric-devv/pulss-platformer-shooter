@@ -9,7 +9,7 @@
 radius = 1.0
 height = 20.0
 
-[node name="Bullet 2" type="RigidBody2D"]
+[node name="Bullet 2" type="RigidBody2D" groups=["bullet"]]
 mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_ibkn5")
 gravity_scale = -0.1

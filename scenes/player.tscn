@@ -1,7 +1,8 @@
-[gd_scene load_steps=60 format=3 uid="uid://5y7286px3uym"]
+[gd_scene load_steps=61 format=3 uid="uid://5y7286px3uym"]
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
+[ext_resource type="Script" path="res://scenes/camera_control.gd" id="2_itka7"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="3_tylyn"]
 [ext_resource type="Texture2D" uid="uid://b6smdj5b0a41i" path="res://assets/gun/gun1.png" id="4_ij8kj"]
 
@@ -440,6 +441,7 @@ script = ExtResource("1_loacj")
 position = Vector2(0, -29)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
+script = ExtResource("2_itka7")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
