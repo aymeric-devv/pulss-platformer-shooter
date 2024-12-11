@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
-[ext_resource type="Script" path="res://scenes/camera_control.gd" id="2_itka7"]
+[ext_resource type="Script" path="res://scripts/camera_control.gd" id="2_itka7"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="3_tylyn"]
 [ext_resource type="Texture2D" uid="uid://b6smdj5b0a41i" path="res://assets/gun/gun1.png" id="4_ij8kj"]
 
@@ -435,12 +435,16 @@ radius = 3.99997
 height = 9.99993
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+rotation = -6.28319
 script = ExtResource("1_loacj")
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(0, -29)
+position = Vector2(1.9233e-06, -11)
+ignore_rotation = false
 zoom = Vector2(4, 4)
+limit_smoothed = true
 position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 script = ExtResource("2_itka7")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]

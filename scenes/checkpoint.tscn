@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8x5a5d2i64pn"]
+
+[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_hsxll"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qh8cb"]
+size = Vector2(50.9982, 30.8505)
+
+[node name="Checkpoint" type="Area2D"]
+script = ExtResource("1_hsxll")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-4.76837e-07, -25)
+rotation = -1.5708
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_qh8cb")
+
+[node name="Where" type="Marker2D" parent="."]
+position = Vector2(0, -25)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

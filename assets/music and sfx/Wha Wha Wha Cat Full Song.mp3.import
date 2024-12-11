@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c0wlsep4s7oy"
+path="res://.godot/imported/Wha Wha Wha Cat Full Song.mp3-e537c3ff281222ac31effd9e14e2dd05.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sfx/Wha Wha Wha Cat Full Song.mp3"
+dest_files=["res://.godot/imported/Wha Wha Wha Cat Full Song.mp3-e537c3ff281222ac31effd9e14e2dd05.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

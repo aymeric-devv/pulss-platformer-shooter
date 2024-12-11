@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 @export var SPEED : int = 80
@@ -29,9 +30,9 @@ var current_speed
 var can_shoot_bullet_1 = true #A bool to know if player can shoot the bullet 1
 var can_shoot_bullet_2 = true #A bool to know if player can shoot the bullet 2
 var mouse_mod = true #Hide the cursor by default
-var prev_animations
+var prev_animations 
 var prev_state #Bool, true -> player is on floor false -> player not on floor
-var checkpoint
+var respawn_position = global_position #Where player respawn
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
@@ -43,7 +44,7 @@ func _process(delta: float) -> void:
 		
 func _physics_process(delta):
 	if !prev_state and is_on_floor(): #Check if player land to the floor
-		camera.start_shake(0.75, 1.0, 15) #Shake the camera
+		camera.start_shake(1, 1.5, 15) #Shake the camera
 		
 	if is_on_floor(): #If player is in air
 		current_speed = SPEED #Set the ground speed
@@ -99,7 +100,7 @@ func _physics_process(delta):
 		if can_shoot_bullet_1:
 			player_state = "shooting"
 			idle_cooldown = 10.0
-			camera.start_shake(0.75, 1.0, 10) #Start a camera shake
+			camera.start_shake(1.5, 1.0, 10) #Start a camera shake
 			play_animation("shoot_bullet_1")
 			shoot_bullet_1()
 			can_shoot_bullet_1 = false
@@ -144,7 +145,7 @@ func shoot_bullet_1(): #Shoot projectiles
 	bullet_1.position = $Gun/Tip.global_position
 	bullet_1.rotation = angle
 	get_tree().current_scene.add_child(bullet_1)
-	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 150) 
+	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 200) 
 	
 func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
@@ -170,10 +171,10 @@ func get_player_state():
 	
 func set_player_position(position):
 	global_position = position
-	
-func died():
-	print("player died")
-	global_position = checkpoint
 
-func set_checkpoint(where):
-	checkpoint = where
+func set_respawn_position(position):
+	respawn_position = position
+	
+func respawn() -> void:
+	await get_tree().create_timer(0.05).timeout
+	global_position = respawn_position

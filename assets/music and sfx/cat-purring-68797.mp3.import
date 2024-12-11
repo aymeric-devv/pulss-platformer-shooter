@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cs6q4fbhe2fox"
+path="res://.godot/imported/cat-purring-68797.mp3-389c2d50e920cfa7e40b6fb67b5d74bb.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sfx/cat-purring-68797.mp3"
+dest_files=["res://.godot/imported/cat-purring-68797.mp3-389c2d50e920cfa7e40b6fb67b5d74bb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
