@@ -6,14 +6,18 @@
 > Click here : *https://aymeric-devv.itch.io/pulss-platformer-shooter*
 >
 ## 📜 Features
-- **God bridge** mechanic
-- **Characters** are cats with funny animations
-- **Fast** platformer
-- Original **weapons**
-- (Coming soon) **Community** maps
-- **Sleep** functionnality
-
+- **Original** gameplay
+- Fast **movements** with for example a god bridge mechanic
+- **Funny** weapons
+- **Cute** cat
+- **Multiplayer** *(coming soon)*
+- Community **maps** *(coming soon)*
+- **Singleplayer** levels *(coming soon)*
+- **Local** multiplayer *(coming soon)*
+  
 ## 📸 Preview
+![Capture d’écran 2024-12-10 192429](https://github.com/user-attachments/assets/72d1880c-0cbc-489d-8789-a86ea0c3cb2f)
+![Capture d’écran 2024-12-11 124755](https://github.com/user-attachments/assets/c432dc29-41e6-414a-8f45-74e5a4cc48d6)
 
 
 
