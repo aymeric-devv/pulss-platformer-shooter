@@ -11,7 +11,6 @@ script = ExtResource("1_hsxll")
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-4.76837e-07, -25)
 rotation = -1.5708
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_qh8cb")
 
 [node name="Where" type="Marker2D" parent="."]
