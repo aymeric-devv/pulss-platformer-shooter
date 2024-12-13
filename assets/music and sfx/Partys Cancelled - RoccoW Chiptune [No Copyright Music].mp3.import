@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cv1v821has5fa"
+path="res://.godot/imported/Partys Cancelled - RoccoW Chiptune [No Copyright Music].mp3-fb69ba4c9c52f5d067eec116768dd849.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sfx/Partys Cancelled - RoccoW Chiptune [No Copyright Music].mp3"
+dest_files=["res://.godot/imported/Partys Cancelled - RoccoW Chiptune [No Copyright Music].mp3-fb69ba4c9c52f5d067eec116768dd849.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

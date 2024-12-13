@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chhsflipea4pb"
-path="res://.godot/imported/move.png-0106087131b4f163fd0d3e0102b02d52.ctex"
+uid="uid://drdqqkpfdhj4x"
+path="res://.godot/imported/pulss.png-ead93899214a1873b106edf26a04cda6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/move.png"
-dest_files=["res://.godot/imported/move.png-0106087131b4f163fd0d3e0102b02d52.ctex"]
+source_file="res://assets/pictures/pulss.png"
+dest_files=["res://.godot/imported/pulss.png-ead93899214a1873b106edf26a04cda6.ctex"]
 
 [params]
 

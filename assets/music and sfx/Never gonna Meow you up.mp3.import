@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bxhqce6vd3k73"
+path="res://.godot/imported/Never gonna Meow you up.mp3-b38a6ec2344bdd31a0d6326db8089df2.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sfx/Never gonna Meow you up.mp3"
+dest_files=["res://.godot/imported/Never gonna Meow you up.mp3-b38a6ec2344bdd31a0d6326db8089df2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
