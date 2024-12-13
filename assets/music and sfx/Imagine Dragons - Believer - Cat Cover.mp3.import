@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cvk27dw4can20"
+path="res://.godot/imported/Imagine Dragons - Believer - Cat Cover.mp3-4d6e5d85da0cf49a9747b25ffc85d125.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sfx/Imagine Dragons - Believer - Cat Cover.mp3"
+dest_files=["res://.godot/imported/Imagine Dragons - Believer - Cat Cover.mp3-4d6e5d85da0cf49a9747b25ffc85d125.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

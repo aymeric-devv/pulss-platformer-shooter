@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nrj1a6kwly4u"
-path="res://.godot/imported/training_zone.png-96573453b553aec189282ec0ec967785.ctex"
+uid="uid://ehfrp8kuyaq3"
+path="res://.godot/imported/playground.png-3d4e656a85c12f8551526bb26765ee34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/training_zone.png"
-dest_files=["res://.godot/imported/training_zone.png-96573453b553aec189282ec0ec967785.ctex"]
+source_file="res://assets/pictures/playground.png"
+dest_files=["res://.godot/imported/playground.png-3d4e656a85c12f8551526bb26765ee34.ctex"]
 
 [params]
 

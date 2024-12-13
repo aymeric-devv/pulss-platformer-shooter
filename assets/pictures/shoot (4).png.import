@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drdqqkpfdhj4x"
-path="res://.godot/imported/pulss.png-3665a10e6c53c66407b86acdbfd20942.ctex"
+uid="uid://djrr3prp8b0s2"
+path="res://.godot/imported/shoot (4).png-5051cfd6a43df58638f7b766a190a291.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/pulss.png"
-dest_files=["res://.godot/imported/pulss.png-3665a10e6c53c66407b86acdbfd20942.ctex"]
+source_file="res://assets/pictures/shoot (4).png"
+dest_files=["res://.godot/imported/shoot (4).png-5051cfd6a43df58638f7b766a190a291.ctex"]
 
 [params]
 

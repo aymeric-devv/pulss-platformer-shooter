@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://pexsra7a1v41"
+path="res://.godot/imported/Dennennaalden - RoccoW Chiptune [No Copyright Music].mp3-a11af8b865b3c87b8a10789e26f135be.mp3str"
+
+[deps]
+
+source_file="res://assets/music and sfx/Dennennaalden - RoccoW Chiptune [No Copyright Music].mp3"
+dest_files=["res://.godot/imported/Dennennaalden - RoccoW Chiptune [No Copyright Music].mp3-a11af8b865b3c87b8a10789e26f135be.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

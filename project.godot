@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Platformer Shooter"
 config/version="3.2"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://scenes/levels/home.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [global_group]
