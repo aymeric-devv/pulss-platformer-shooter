@@ -9,6 +9,11 @@ extends CharacterBody2D
 @export var jump_time_to_peak : float = 0.25
 @export var jump_time_to_descent : float = 0.15
 
+@export var bullet_1_force : float = 200
+@export var bullet_2_force : float = 0.1
+@export var spam_delay_bullet_1 : float = 0.5
+@export var spam_delay_bullet_2 : float = 0.15
+
 @onready var jump_velocity : float = ((2.0 * jump_height)  / jump_time_to_peak) * -1.0
 @onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
 @onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
@@ -105,7 +110,7 @@ func _physics_process(delta):
 			play_animation("shoot_bullet_1")
 			shoot_bullet_1()
 			can_shoot_bullet_1 = false
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(spam_delay_bullet_1).timeout
 			can_shoot_bullet_1 = true
 			player_state = "nothing"
 			
@@ -117,7 +122,7 @@ func _physics_process(delta):
 			play_animation("shoot_bullet_2")
 			shoot_bullet_2()
 			can_shoot_bullet_2 = false
-			await get_tree().create_timer(0.15).timeout
+			await get_tree().create_timer(spam_delay_bullet_2).timeout
 			can_shoot_bullet_2 = true
 			player_state = "nothing"
 		
@@ -146,13 +151,13 @@ func shoot_bullet_1(): #Shoot projectiles
 	bullet_1.position = $Gun/Tip.global_position
 	bullet_1.rotation = angle
 	get_tree().current_scene.add_child(bullet_1)
-	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * 200) 
+	bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * bullet_1_force) 
 	
 func shoot_bullet_2():
 	var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
 	bullet_2.position = $Gun/Tip.global_position
 	get_tree().current_scene.add_child(bullet_2)
-	bullet_2.apply_central_force(Vector2(0, 0.1))
+	bullet_2.apply_central_force(Vector2(0, bullet_2_force))
 
 func play_animation(animation):
 	#print(animation)
