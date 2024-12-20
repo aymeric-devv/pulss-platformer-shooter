@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 
 player="The player group"
 bullet=""
+can_be_propulse=""
 
 [input]
 
