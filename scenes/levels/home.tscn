@@ -735,13 +735,14 @@ texture = ExtResource("12_5fhx2")
 [node name="Player" parent="." instance=ExtResource("19_1my5n")]
 rotation = -4.46638e-06
 
-[node name="Camera" type="Camera2D" parent="Player"]
-position = Vector2(5.10535e-05, -11)
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("object_to_follow")]
+position = Vector2(1.92332e-06, -11)
 ignore_rotation = false
 zoom = Vector2(4, 4)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("17_cgirn")
+object_to_follow = NodePath("../Player")
 
 [connection signal="body_entered" from="Died-Zone" to="Died-Zone" method="_on_body_entered"]

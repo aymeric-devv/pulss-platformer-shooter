@@ -3,6 +3,9 @@ extends Camera2D
 
 # Pour FastNoiseLite
 @export var noise_frequency: float = 20.0
+@export var follow_object: bool = true
+@export var object_to_follow: Node
+
 var noise = FastNoiseLite.new()
 
 # Variables pour le tremblement
@@ -41,6 +44,10 @@ func _process(delta: float) -> void:
 	else:
 		offset = Vector2.ZERO
 
+func _physics_process(delta: float) -> void:
+	if follow_object:
+		global_position = object_to_follow.global_position
+		
 # Démarrer un tremblement
 func start_shake(intensity: float, duration: float, decay: float = 1.0) -> void:
 	print("shake")

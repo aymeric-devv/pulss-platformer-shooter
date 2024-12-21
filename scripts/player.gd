@@ -20,8 +20,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite: AnimatedSprite2D = $Animations
 @onready var bullets: Node2D = $Bullets  #Where the bullets will be stored
-@onready var camera: Camera2D = $Camera  #Get camera for camera effect like shake
-
+@onready var camera: Camera2D = $"../Camera"
 
 var BULLET_1 = preload("res://scenes/bullets/bullet_1.tscn") #Preload the bullet 1
 var BULLET_2 = preload("res://scenes/bullets/bullet_2.tscn") #Preload the bullet 2
