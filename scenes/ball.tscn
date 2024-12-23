@@ -25,3 +25,5 @@ texture = ExtResource("1_w3e5y")
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 scale = Vector2(1.1, 1.1)
 shape = SubResource("CircleShape2D_yhwc2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

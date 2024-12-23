@@ -440,9 +440,9 @@ script = ExtResource("1_loacj")
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_14gas")
-animation = &"degats"
+animation = &"in-air"
 autoplay = "idle"
-frame_progress = 0.504229
+frame_progress = 0.350249
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)

@@ -1,11 +1,13 @@
+class_name Ball
 extends RigidBody2D
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _on_body_entered(body: Node) -> void:
+	if body is Player or body.is_in_group("bullet"):
+		print("touch balls")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	print(global_rotation_degrees)
+func set_ball_position(where):
+	var xform = get_transform()
+	xform.origin.x = where.x
+	xform.origin.y = where.y
+	
