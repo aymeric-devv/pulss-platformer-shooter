@@ -5,6 +5,9 @@ extends Camera2D
 @export var noise_frequency: float = 20.0
 @export var follow_object: bool = true
 @export var object_to_follow: Node
+@export var zoom_effect: bool = false
+@export var zoom_player: = Node
+@export var zoom_object: = Node
 
 var noise = FastNoiseLite.new()
 
@@ -13,6 +16,7 @@ var shake_intensity: float = 0.0
 var shake_decay: float = 1.0
 var shake_time: float = 400.0
 var noise_time: float = 0.0
+var prev_zoom_value = 0.0 #Store prev zoom value to don't apply zoom if value has no difference with the old value
 
 # Initialisation
 func _ready() -> void:
@@ -47,10 +51,30 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if follow_object:
 		global_position = object_to_follow.global_position
-		
-# Démarrer un tremblement
+	if zoom_effect:
+		var zoom_value = calculate_zoom(zoom_player.global_position, zoom_object.global_position)
+		print(prev_zoom_value - zoom_value)
+		zoom = Vector2(zoom_value, zoom_value)
+		prev_zoom_value = zoom_value
+
+
 func start_shake(intensity: float, duration: float, decay: float = 1.0) -> void:
-	print("shake")
 	shake_intensity = intensity
 	shake_time = duration
 	shake_decay = decay
+
+func calculate_zoom(object1: Vector2, object2: Vector2):
+	var distance_btw = abs(object1 - object2)
+	var output = remap(distance_btw.x + distance_btw.y, 20, 800, 3.0, 2.0)
+	return output
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

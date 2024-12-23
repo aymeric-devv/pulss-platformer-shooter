@@ -64,7 +64,7 @@ func _physics_process(delta):
 		
 	var direction = Input.get_axis("move_left", "move_right") #Get the direction
 	if direction: #if player press a key
-		if is_on_floor(): #If player moves on floor
+		if is_on_floor(): #If player want to move on floor
 			if player_state != "jumping": #Play the annimation if player isn't jumping 
 				if player_state != "shooting":
 					player_state = "run"
