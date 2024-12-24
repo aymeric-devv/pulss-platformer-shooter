@@ -110,14 +110,11 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("dash") and can_dash:
 			player_state = "dashing"
-			movements_lock = true
 			print("dash")
-			var dash_position = dash_direction_object.global_position + Vector2(100, 100)
-			velocity.y = move_toward(global_position.y, dash_position.y, 100)
-			velocity.x = move_toward(global_position.x, dash_position.x, 100)
+			velocity = dash_direction_object.global_position * 40
 			player_state = "nothing"
-			movements_lock = false
-		
+	
+
 	if Input.is_action_just_pressed("bullet_1_shoot"): #Shooting
 		if can_shoot_bullet_1 and !movements_lock:
 			player_state = "shooting"

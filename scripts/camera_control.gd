@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	
 	if follow_object: #Follow an object, like player for example
-		global_position = object_to_follow.global_position
+		position = object_to_follow.global_position
 	
 	if zoom_effect: #Apply zoom effect
 		var zoom_value = calculate_zoom(zoom_player.global_position.x, zoom_object.global_position.x) #Calculate first
