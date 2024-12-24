@@ -10,10 +10,10 @@
 - Fast **movements** with for example a god bridge mechanic
 - **Funny** weapons
 - **Cute** cat
-- **Multiplayer** *(coming soon)*
+- **Multiplayer** with minigames like rocket cat; angry cat, etc *(in developpement)*
 - Community **maps** *(coming soon)*
 - **Singleplayer** levels *(coming soon)*
-- **Local** multiplayer *(coming soon)*
+- **Local** multiplayer and collab *(coming soon)*
   
 ## 📸 Preview
 ![Capture d’écran 2024-12-10 192429](https://github.com/user-attachments/assets/72d1880c-0cbc-489d-8789-a86ea0c3cb2f)
@@ -69,9 +69,7 @@ You can download it where you want.*
 
 | Dates | What's added |
 |---|---|
-| 08.12.24 -> 09.12.24 | Created a really better and more elegant home level. |
-| 04.12.24 -> 07.12.24 | Added weapons, a bridge mechanic and the home level with a playground. |
-| 30.11.24 -> 03.12.24 | Implemented better movements and the best jump. Added animations and a level. |
+| 10.12.24 -> ... | Work on SFX and music, dash, rocket cat game, and more. |
 ## 🛠 How to simply edit the project like you want
 
 ## 💬 Questions
