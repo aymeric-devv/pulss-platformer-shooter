@@ -433,9 +433,10 @@ animations = [{
 radius = 3.99997
 height = 9.99993
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_direction_object") groups=["player"]]
 rotation = -6.28319
 script = ExtResource("1_loacj")
+dash_direction_object = NodePath("Gun/Tip")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)

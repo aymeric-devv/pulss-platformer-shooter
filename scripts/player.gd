@@ -1,23 +1,24 @@
 class_name Player
 extends CharacterBody2D
 
-@export var SPEED : int = 80
-@export var IN_AIR_SPEED : int = 60 #Custom in-air speed
-@export var jump_buffer_time : int  = 20 
-@export var cayote_time : int = 15
-@export var jump_height : float = 15
-@export var jump_time_to_peak : float = 0.25
-@export var jump_time_to_descent : float = 0.15
+@export var can_dash: bool = true
+@export var dash_direction_object: Node2D
+@export var SPEED: int = 80
+@export var IN_AIR_SPEED: int = 60 #Custom in-air speed
+@export var jump_buffer_time: int  = 20 
+@export var cayote_time: int = 15
+@export var jump_height: float = 15
+@export var jump_time_to_peak: float = 0.25
+@export var jump_time_to_descent: float = 0.15
+@export var movements_lock: bool = false
+@export var bullet_1_force: float = 200
+@export var bullet_2_force: float = 0.1
+@export var spam_delay_bullet_1: float = 0.5
+@export var spam_delay_bullet_2: float = 0.15
 
-@export var bullet_1_force : float = 200
-@export var bullet_2_force : float = 0.1
-@export var spam_delay_bullet_1 : float = 0.5
-@export var spam_delay_bullet_2 : float = 0.15
-
-@onready var jump_velocity : float = ((2.0 * jump_height)  / jump_time_to_peak) * -1.0
-@onready var jump_gravity : float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
-@onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
-
+@onready var jump_velocity: float = ((2.0 * jump_height)  / jump_time_to_peak) * -1.0
+@onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
+@onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
 @onready var animated_sprite: AnimatedSprite2D = $Animations
 @onready var bullets: Node2D = $Bullets  #Where the bullets will be stored
 @onready var camera: Camera2D = $"../Camera"
@@ -38,6 +39,7 @@ var mouse_mod = true #Hide the cursor by default
 var prev_animations 
 var prev_state #Bool, true -> player is on floor false -> player not on floor
 var respawn_position = global_position #Where player respawn
+var last_moved_dir = 0
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
@@ -48,10 +50,14 @@ func _process(delta: float) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 func _physics_process(delta):
+	#Engine.time_scale = 0.1
+	var direction = Input.get_axis("move_left", "move_right") #Get the direction
+	
 	if !prev_state and is_on_floor(): #Check if player land to the floor
 		camera.start_shake(1, 1.5, 15) #Shake the camera
 		
 	if is_on_floor(): #If player is in air
+		global_rotation_degrees = 0
 		current_speed = SPEED #Set the ground speed
 		cayote_counter = cayote_time
 		if player_state != "idle" and player_state != "run" and player_state != "shooting":
@@ -61,27 +67,29 @@ func _physics_process(delta):
 		velocity.y += get_current_gravity() * delta #Add gravity in air
 		if cayote_counter > 0: #Counter for cayote time
 			cayote_counter -= 1
-		
-	var direction = Input.get_axis("move_left", "move_right") #Get the direction
+	
 	if direction: #if player press a key
-		if is_on_floor(): #If player want to move on floor
-			if player_state != "jumping": #Play the annimation if player isn't jumping 
-				if player_state != "shooting":
-					player_state = "run"
-					play_animation("run")
-		else: #Else
-			if player_state != "jumping":
-				player_state = "fly" #Play fly animation
-				play_animation("jump2")
+		last_moved_dir = direction
+		if !movements_lock: #the player moves only if he can
+			if is_on_floor(): #If player want to move on floor
+				if player_state != "jumping": #Play the annimation if player isn't jumping 
+					if player_state != "shooting":
+						player_state = "run"
+						play_animation("run")
+			else: #Else
+				if player_state != "jumping" and player_state != "dashing":
+					player_state = "fly" #Play fly animation
+					play_animation("jump2")
 				
-		if direction > 0: #Turn the player
-			animated_sprite.flip_h = false
-		else:
-			animated_sprite.flip_h = true
-		velocity.x = direction * current_speed #Apply speed
-		slow_friction(delta)
-		idle_cooldown = 10.0
-			
+			if direction > 0: #Turn the player
+				animated_sprite.flip_h = false
+			else:
+				animated_sprite.flip_h = true
+		
+			velocity.x = direction * current_speed #Apply speed only if player isn't dashing
+			slow_friction(delta)
+			idle_cooldown = 10.0
+				
 	else: #If player doesn't move
 		velocity.x = move_toward(velocity.x, 0, SPEED) #Stop the player
 		if is_on_floor(): #If doesn't move in ground
@@ -96,13 +104,22 @@ func _physics_process(delta):
 					play_animation("sleep")
 					
 		else: #Else, if player doesn't move in air
-			if player_state != "jumping" and player_state != "shooting":
+			if player_state != "jumping" and player_state != "shooting" and player_state != "dashing":
 				player_state = "fall"
 				play_animation("in-air") #Play in air animation
 	
+	if Input.is_action_just_pressed("dash") and can_dash:
+			player_state = "dashing"
+			movements_lock = true
+			print("dash")
+			var dash_position = dash_direction_object.global_position + Vector2(100, 100)
+			velocity.y = move_toward(global_position.y, dash_position.y, 100)
+			velocity.x = move_toward(global_position.x, dash_position.x, 100)
+			player_state = "nothing"
+			movements_lock = false
 		
 	if Input.is_action_just_pressed("bullet_1_shoot"): #Shooting
-		if can_shoot_bullet_1:
+		if can_shoot_bullet_1 and !movements_lock:
 			player_state = "shooting"
 			idle_cooldown = 10.0
 			camera.start_shake(1.5, 1.0, 10) #Start a camera shake
@@ -114,7 +131,7 @@ func _physics_process(delta):
 			player_state = "nothing"
 			
 	if Input.is_action_just_pressed("bullet_2_shoot"): #Shooting
-		if can_shoot_bullet_2:
+		if can_shoot_bullet_2 and !movements_lock:
 			player_state = "shooting"
 			idle_cooldown = 10.0
 			camera.start_shake(0.5, 0.5, 30)
@@ -131,7 +148,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump"): #Look if player jump
 		jump_buffer_counter = jump_buffer_time #Set buffer time
 		
-	if jump_buffer_counter > 0 and cayote_counter > 0: #Jump 
+	if jump_buffer_counter > 0 and cayote_counter > 0 and !movements_lock: #Jump 
 		jump()
 		
 	prev_player_state = player_state
@@ -162,7 +179,7 @@ func play_animation(animation):
 	#print(animation)
 	animated_sprite.play(animation)
 	prev_animations = animation
-
+	
 func jump():
 	player_state = "jumping"
 	idle_cooldown = 10.0 #Reset the player idle cooldown

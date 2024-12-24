@@ -46,7 +46,6 @@ func _physics_process(delta: float) -> void:
 	
 	if zoom_effect: #Apply zoom effect
 		var zoom_value = calculate_zoom(zoom_player.global_position.x, zoom_object.global_position.x) #Calculate first
-		print(zoom_value)
 		zoom = Vector2(zoom_value, zoom_value)
 		prev_zoom_value = zoom_value
 
@@ -57,7 +56,6 @@ func start_shake(intensity: float, duration: float, decay: float = 1.0) -> void:
 	shake_decay = decay
 
 func calculate_zoom(object1: float, object2: float):
-	print(abs(object1 - object2))
 	return remap(abs(object1 - object2), 0, 700, max_zoom, min_zoom) #Return distance between the two objects remaped to be applied to zoom level
 	
 	
