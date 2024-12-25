@@ -14,7 +14,7 @@ var shake_time: float = 400.0
 var noise_time: float = 0.0
 
 # ** FOLLOW AN OBJECT ** 
-@export var follow_object: bool = true # Enable camera follow an object by default
+@export var enable_follow_object: bool = true # Enable camera follow an object by default
 @export var object_to_follow: Node # What object to follow ? Can be player, ball, etc
 
 # ** ZOOM ** 
@@ -44,6 +44,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if zoom_effect: # Apply zoom effect
 		perform_zoom(calculate_zoom(zoom_object_1.global_position.x, zoom_object_2.global_position.x)) # Do a zoom with the calculated value
+	
+	if enable_follow_object:
+		follow_an_object(object_to_follow)
 
 # ** USER'S FUNCTIONS **
 func calculate_shake(delta: float): # Calculate shake offset and time (Come from chatgpt sorry..)
@@ -68,6 +71,19 @@ func calculate_zoom(object1: float, object2: float): # Calculate the zoom value
 func perform_zoom(value: float):
 	zoom = Vector2(value, value)
 
+func follow_an_object(object : Node): # A simple function to follow an object
+	position = object.global_position # Set the position to the position of the object to follow
+	
+func set_camera_zoom(value : float) -> void: # Set a new camera zoom
+	if !zoom_effect: # Only if zoom effect is disable to prevent bug
+		zoom = Vector2(value, value)
+		
+func set_camera_position(value : Vector2) -> void: # Set a new position for the camera
+	position = value
+	
+func move_camera_position(value : Vector2) -> void: # Add a Vect2 to the camera position
+	position += value
+	
 #endregion	
 	
 	

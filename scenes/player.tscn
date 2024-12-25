@@ -1,7 +1,9 @@
-[gd_scene load_steps=60 format=3 uid="uid://5y7286px3uym"]
+[gd_scene load_steps=62 format=3 uid="uid://5y7286px3uym"]
 
 [ext_resource type="Texture2D" uid="uid://cmyphjduuc27l" path="res://assets/player/Cat Sprite Sheet.png" id="1_epqn4"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_loacj"]
+[ext_resource type="PackedScene" uid="uid://b8pe1mjfbccen" path="res://scenes/bullets/bullet_1.tscn" id="2_rahds"]
+[ext_resource type="PackedScene" uid="uid://70brbdntmv0l" path="res://scenes/bullets/bullet_2.tscn" id="3_banla"]
 [ext_resource type="Script" path="res://scripts/gun.gd" id="3_tylyn"]
 [ext_resource type="Texture2D" uid="uid://b6smdj5b0a41i" path="res://assets/gun/gun1.png" id="4_ij8kj"]
 
@@ -433,10 +435,11 @@ animations = [{
 radius = 3.99997
 height = 9.99993
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("dash_direction_object") groups=["player"]]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 rotation = -6.28319
 script = ExtResource("1_loacj")
-dash_direction_object = NodePath("Gun/Tip")
+bullet_1 = ExtResource("2_rahds")
+bullet_2 = ExtResource("3_banla")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
@@ -459,7 +462,7 @@ position = Vector2(5, 0)
 texture = ExtResource("4_ij8kj")
 
 [node name="Tip" type="Marker2D" parent="Gun"]
-position = Vector2(6, 0)
+position = Vector2(9.00002, 3.58106e-05)
 rotation = -0.00319641
 
 [node name="Bullets" type="Node2D" parent="."]

@@ -10,7 +10,7 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_yhwc2"]
 radius = 11.1803
 
-[node name="Ball" type="RigidBody2D" groups=["can_be_propulse"]]
+[node name="Ball" type="RigidBody2D" groups=["can_be_propulsed"]]
 mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_5oa7k")
 gravity_scale = 0.1
