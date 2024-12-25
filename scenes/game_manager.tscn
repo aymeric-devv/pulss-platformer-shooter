@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbcxmyjmk7idi"]
+
+[ext_resource type="PackedScene" uid="uid://ix7at85x2awr" path="res://scenes/levels/home.tscn" id="1_nwil2"]
+
+[node name="Game Manager" type="Node"]
+
+[node name="Home" parent="." instance=ExtResource("1_nwil2")]
+position = Vector2(2, -20)

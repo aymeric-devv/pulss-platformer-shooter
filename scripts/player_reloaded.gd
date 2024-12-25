@@ -1,207 +1,4 @@
-#region Prev code
-
-#class_name Player
-#extends CharacterBody2D
-#
-#@export var can_dash: bool = true
-#@export var dash_direction_object: Node2D
-#@export var SPEED: int = 80
-#@export var IN_AIR_SPEED: int = 60 #Custom in-air speed
-#@export var jump_buffer_time: int  = 20 
-#@export var cayote_time: int = 15
-#@export var jump_height: float = 15
-#@export var jump_time_to_peak: float = 0.25
-#@export var jump_time_to_descent: float = 0.15
-#@export var movements_lock: bool = false
-#@export var bullet_1_force: float = 200
-#@export var bullet_2_force: float = 0.1
-#@export var spam_delay_bullet_1: float = 0.5
-#@export var spam_delay_bullet_2: float = 0.15
-#
-#@onready var jump_velocity: float = ((2.0 * jump_height)  / jump_time_to_peak) * -1.0
-#@onready var jump_gravity: float = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
-#@onready var fall_gravity: float = ((-2.0 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1.0
-#@onready var animated_sprite: AnimatedSprite2D = $Animations
-#@onready var bullets: Node2D = $Bullets  #Where the bullets will be stored
-#@onready var camera: Camera2D = $"../Camera"
-#
-#var BULLET_1 = preload("res://scenes/bullets/bullet_1.tscn") #Preload the bullet 1
-#var BULLET_2 = preload("res://scenes/bullets/bullet_2.tscn") #Preload the bullet 2
-#
-#var jump_buffer_counter : int = 0
-#var cayote_counter : int = 0
-#var player_state = "idle" #Store player state in a variable
-#var prev_player_state = "idle" #Store the old player state
-#var idle_cooldown = 10.0 #A cooldown beetwen each idles animations
-#var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-#var current_speed
-#var can_shoot_bullet_1 = true #A bool to know if player can shoot the bullet 1
-#var can_shoot_bullet_2 = true #A bool to know if player can shoot the bullet 2
-#var mouse_mod = true #Hide the cursor by default
-#var prev_animations 
-#var prev_state #Bool, true -> player is on floor false -> player not on floor
-#var respawn_position = global_position #Where player respawn
-#var last_moved_dir = 0
-#
-#func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("echap"): #Press esc to show cursor or quit the game
-		#mouse_mod = !mouse_mod
-	#if mouse_mod:
-		#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	#else:
-		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		#
-#func _physics_process(delta):
-	##Engine.time_scale = 0.1
-	#var direction = Input.get_axis("move_left", "move_right") #Get the direction
-	#
-	#if !prev_state and is_on_floor(): #Check if player land to the floor
-		#camera.start_shake(1, 1.5, 15) #Shake the camera
-		#
-	#if is_on_floor(): #If player is in air
-		#global_rotation_degrees = 0
-		#current_speed = SPEED #Set the ground speed
-		#cayote_counter = cayote_time
-		#if player_state != "idle" and player_state != "run" and player_state != "shooting":
-			#player_state = "nothing" #Set this variable after a jump to finish it
-	#else:
-		#current_speed = IN_AIR_SPEED #SSet the in-air speed
-		#velocity.y += get_current_gravity() * delta #Add gravity in air
-		#if cayote_counter > 0: #Counter for cayote time
-			#cayote_counter -= 1
-	#
-	#if direction: #if player press a key
-		#last_moved_dir = direction
-		#if !movements_lock: #the player moves only if he can
-			#if is_on_floor(): #If player want to move on floor
-				#if player_state != "jumping": #Play the annimation if player isn't jumping 
-					#if player_state != "shooting":
-						#player_state = "run"
-						#play_animation("run")
-			#else: #Else
-				#if player_state != "jumping" and player_state != "dashing":
-					#player_state = "fly" #Play fly animation
-					#play_animation("jump2")
-				#
-			#if direction > 0: #Turn the player
-				#animated_sprite.flip_h = false
-			#else:
-				#animated_sprite.flip_h = true
-		#
-			#velocity.x = direction * current_speed #Apply speed only if player isn't dashing
-			#slow_friction(delta)
-			#idle_cooldown = 10.0
-				#
-	#else: #If player doesn't move
-		#velocity.x = move_toward(velocity.x, 0, SPEED) #Stop the player
-		#if is_on_floor(): #If doesn't move in ground
-			#if player_state != "jumping" && player_state != "shooting": #If player isn't jumping to prevent animation conflict	 	
-				#player_state = "idle"
-				#idle_cooldown -= 0.01
-				#if idle_cooldown > 9.5: #Play animations
-					#play_animation("wait")
-				#elif idle_cooldown > 3:
-					#play_animation("idle")
-				#else:
-					#play_animation("sleep")
-					#
-		#else: #Else, if player doesn't move in air
-			#if player_state != "jumping" and player_state != "shooting" and player_state != "dashing":
-				#player_state = "fall"
-				#play_animation("in-air") #Play in air animation
-	#
-	#if Input.is_action_just_pressed("dash") and can_dash:
-			#player_state = "dashing"
-			#print("dash")
-			#velocity = dash_direction_object.global_position * 40
-			#player_state = "nothing"
-	#
-#
-	#if Input.is_action_just_pressed("bullet_1_shoot"): #Shooting
-		#if can_shoot_bullet_1 and !movements_lock:
-			#player_state = "shooting"
-			#idle_cooldown = 10.0
-			#camera.start_shake(1.5, 1.0, 10) #Start a camera shake
-			#play_animation("shoot_bullet_1")
-			#shoot_bullet_1()
-			#can_shoot_bullet_1 = false
-			#await get_tree().create_timer(spam_delay_bullet_1).timeout
-			#can_shoot_bullet_1 = true
-			#player_state = "nothing"
-			#
-	#if Input.is_action_just_pressed("bullet_2_shoot"): #Shooting
-		#if can_shoot_bullet_2 and !movements_lock:
-			#player_state = "shooting"
-			#idle_cooldown = 10.0
-			#camera.start_shake(0.5, 0.5, 30)
-			#play_animation("shoot_bullet_2")
-			#shoot_bullet_2()
-			#can_shoot_bullet_2 = false
-			#await get_tree().create_timer(spam_delay_bullet_2).timeout
-			#can_shoot_bullet_2 = true
-			#player_state = "nothing"
-		#
-	#if jump_buffer_counter > 0: #Jump buffer counter
-		#jump_buffer_counter -= 1
-		#
-	#if Input.is_action_just_pressed("jump"): #Look if player jump
-		#jump_buffer_counter = jump_buffer_time #Set buffer time
-		#
-	#if jump_buffer_counter > 0 and cayote_counter > 0 and !movements_lock: #Jump 
-		#jump()
-		#
-	#prev_player_state = player_state
-	#prev_state = is_on_floor()
-	#move_and_slide()
-	#
-#func slow_friction(d):
-	#velocity.x -= .02 * d
-#
-#func get_current_gravity():
-	#return jump_gravity if velocity.y < 0.0 else fall_gravity
-#
-#func shoot_bullet_1(): #Shoot projectiles
-	#var bullet_1 = BULLET_1.instantiate() #Prefab of projectile
-	#var angle = $Gun/Tip.global_rotation #Set the rotation of the gun
-	#bullet_1.position = $Gun/Tip.global_position
-	#bullet_1.rotation = angle
-	#get_tree().current_scene.add_child(bullet_1)
-	#bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * bullet_1_force) 
-	#
-#func shoot_bullet_2():
-	#var bullet_2 = BULLET_2.instantiate() #Prefab of projectile
-	#bullet_2.position = $Gun/Tip.global_position
-	#get_tree().current_scene.add_child(bullet_2)
-	#bullet_2.apply_central_force(Vector2(0, bullet_2_force))
-#
-#func play_animation(animation):
-	##print(animation)
-	#animated_sprite.play(animation)
-	#prev_animations = animation
-	#
-#func jump():
-	#player_state = "jumping"
-	#idle_cooldown = 10.0 #Reset the player idle cooldown
-	#play_animation("jump")
-	#velocity.y = jump_velocity #Jump
-	#jump_buffer_counter = 0 #Reset jump buffer
-	#cayote_counter = 0 #Reset cayote time
-#
-#func get_player_state():
-	#return player_state
-	#
-#func set_player_position(position):
-	#global_position = position
-#
-#func set_respawn_position(position):
-	#respawn_position = position
-	#
-#func respawn() -> void:
-	#await get_tree().create_timer(0.05).timeout
-	#global_position = respawn_position
-#endregion
-
-class_name Player
+class_name Player_reloaded
 extends CharacterBody2D
 
 #region VARIABLES
@@ -217,7 +14,7 @@ var player_name : String = "Aymeric-devv"
 
 # ** MOVEMENTS & SHOOT **
 # -- Simple moves --
-var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var GRAVITY : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var SPEED : int = 80 # Speed
 @export var IN_AIR_SPEED : int = 60 # In-air speed
 var current_speed : int # Where the speed is stored
@@ -265,12 +62,12 @@ var player_state = PlayerState.IDLE # Where the player's state from the enum wil
 var prev_player_state = player_state # Just store the prev player's state
 
 # ** NODES & SCENES ** 
-@onready var sprites: AnimatedSprite2D = $Animations # Animated sprite of player
+@export var sprites : AnimatedSprite2D # Animated sprite of player
 @export var camera : Camera2D # Player's camera
 @export var bullet_1 : PackedScene # Set a variable for bullet 1
 @export var bullet_2 : PackedScene # Same for bullet 2
-@onready var gun: Node2D = $Gun # Same for gun
-@onready var gun_tip: Marker2D = $Gun/Tip # Same for gun's tip
+@export var gun_tip : Node # Same for gun's tip
+@export var gun: Node # Same for gun
 
 #endregion
 
@@ -286,7 +83,6 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	#Engine.time_scale = 0.001
 	get_inputs() # Get player's input first
 	if !movements_lock:
 		move(delta) # Just move the player according inputs, including movements, jump and dash
@@ -379,9 +175,9 @@ func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independ
 			play_animation("shoot_bullet_1")
 			# Shoot bullet
 			var _bullet_1 = bullet_1.instantiate() # Prefab of projectile
-			var angle = gun_tip.global_rotation # Store the rotation of the gun
+			var angle = gun_tip.global_rotation # Set the rotation of the gun
 			_bullet_1.position = gun_tip.global_position # Set position of the bullet
-			_bullet_1.rotation =  angle # Same for rotation
+			_bullet_1.rotation =  gun_tip.global_rotation # Same for rotation
 			get_tree().current_scene.add_child(_bullet_1) # Add bullet to player's scene
 			_bullet_1.add_to_group(player_name)
 			_bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * bullet_1_force) # Propulse bullet 
@@ -403,7 +199,7 @@ func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independ
 			_bullet_2.position = gun_tip.global_position
 			get_tree().current_scene.add_child(_bullet_2)
 			_bullet_2.add_to_group(player_name)
-			_bullet_2.apply_central_force(Vector2(0, bullet_2_force))
+			bullet_2.apply_central_force(Vector2(0, bullet_2_force))
 			# Spam cooldown
 			can_shoot_bullet_2 = false
 			await get_tree().create_timer(spam_delay_bullet_2).timeout

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8pe1mjfbccen"]
 
-[ext_resource type="Script" path="res://scripts/bullet_control_1.gd" id="1_pb7ko"]
+[ext_resource type="Script" path="res://scripts/bullet_1.gd" id="1_sajpr"]
 [ext_resource type="Texture2D" uid="uid://fbg4gwe4nkqa" path="res://assets/gun/bullet1.png" id="2_upymi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1hij2"]
@@ -12,12 +12,12 @@ radius = 4.0
 height = 12.0
 
 [node name="Bullet 1" type="RigidBody2D" groups=["bullet"]]
-mass = 0.001
+mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_1hij2")
 gravity_scale = 0.1
 contact_monitor = true
 max_contacts_reported = 50
-script = ExtResource("1_pb7ko")
+script = ExtResource("1_sajpr")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_upymi")

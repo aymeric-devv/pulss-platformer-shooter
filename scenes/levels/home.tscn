@@ -11,11 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://dbhhjatjfe0he" path="res://assets/pictures/jump2.png" id="7_l17j2"]
 [ext_resource type="Texture2D" uid="uid://cyyat0mqic4c8" path="res://assets/pictures/bridge .png" id="8_rq37w"]
 [ext_resource type="Texture2D" uid="uid://nrj1a6kwly4u" path="res://assets/pictures/training_zone.png" id="9_ihca4"]
-[ext_resource type="Script" path="res://scripts/died-zone-home.gd" id="10_cpotu"]
+[ext_resource type="Script" path="res://scripts/died-zone.gd" id="10_cpotu"]
 [ext_resource type="Texture2D" uid="uid://cc136k4f62xmk" path="res://assets/pictures/multiplayer.png" id="12_5fhx2"]
 [ext_resource type="AudioStream" uid="uid://pexsra7a1v41" path="res://assets/music and sfx/Dennennaalden - RoccoW Chiptune [No Copyright Music].mp3" id="15_fb12c"]
 [ext_resource type="Texture2D" uid="uid://b34lt2fun2w71" path="res://assets/pictures/jukebox.png" id="16_5t2lu"]
-[ext_resource type="Script" path="res://scripts/camera_control.gd" id="17_cgirn"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="17_cgirn"]
 [ext_resource type="PackedScene" uid="uid://5y7286px3uym" path="res://scenes/player.tscn" id="19_1my5n"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wognb"]
@@ -732,16 +732,18 @@ texture = ExtResource("12_5fhx2")
 
 [node name="Checkpoint" parent="." instance=ExtResource("2_twowr")]
 
-[node name="Player" parent="." instance=ExtResource("19_1my5n")]
+[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("19_1my5n")]
 rotation = -4.46638e-06
+camera = NodePath("../Camera")
 
-[node name="Camera" type="Camera2D" parent="Player"]
-position = Vector2(5.10535e-05, -11)
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("object_to_follow")]
+position = Vector2(1.92332e-06, -11)
 ignore_rotation = false
 zoom = Vector2(4, 4)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 script = ExtResource("17_cgirn")
+object_to_follow = NodePath("../Player")
 
 [connection signal="body_entered" from="Died-Zone" to="Died-Zone" method="_on_body_entered"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxycf18bmgol1"]
+
+[ext_resource type="Script" path="res://scripts/propulsion_area.gd" id="1_vdlm7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spe17"]
+size = Vector2(350, 163)
+
+[node name="Propulsion Area" type="Area2D"]
+rotation = 0.00124651
+script = ExtResource("1_vdlm7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_spe17")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
