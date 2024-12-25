@@ -5,5 +5,4 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		print("check set")
-		body.set_respawn_position(where.global_position)
+		body.set_respawn_position(global_position)

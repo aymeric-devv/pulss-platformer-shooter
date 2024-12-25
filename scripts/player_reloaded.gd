@@ -1,4 +1,4 @@
-class_name Player
+class_name Player_reloaded
 extends CharacterBody2D
 
 #region VARIABLES
@@ -6,9 +6,11 @@ extends CharacterBody2D
 # ++ GLOBAL VARARIABLES ++
 
 # ** NO CATEGORIES
-@export var movements_lock: bool = false
-var idle_cooldown : float = 10.0 
+@export var movements_lock: bool = false # A bool to know if player can move and shoot
+const IDLE_COOLDOWN : float = 10.0 # Store the value of idle cooldown
+var _idle_cooldown : float # Store the current value of cooldown
 var respawn_position : Vector2 = global_position
+var player_name : String = "Aymeric-devv"
 
 # ** MOVEMENTS & SHOOT **
 # -- Simple moves --
@@ -64,7 +66,8 @@ var prev_player_state = player_state # Just store the prev player's state
 @export var camera : Camera2D # Player's camera
 @export var bullet_1 : PackedScene # Set a variable for bullet 1
 @export var bullet_2 : PackedScene # Same for bullet 2
-@export var gun_tip : Node
+@export var gun_tip : Node # Same for gun's tip
+@export var gun: Node # Same for gun
 
 #endregion
 
@@ -81,8 +84,10 @@ func _process(delta):
 
 func _physics_process(delta):
 	get_inputs() # Get player's input first
-	move(delta) # Just move the player according inputs, including movements, jump and dash
-	shoot() # A function to manage player's shoots  
+	if !movements_lock:
+		move(delta) # Just move the player according inputs, including movements, jump and dash
+		shoot() # A function to manage player's shoots  
+	move_and_slide() # Finally, move !
 
 # ** USEFUL FUNCTIONS **
 func get_inputs() -> void: # Get inputs and store them in input variables
@@ -125,6 +130,7 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 		
 		velocity.x = direction * current_speed # Apply movements to velocity.x
 		slow_friction(delta)
+		reset_idle_cooldown()
 	
 	else: # If player doesn't move
 		velocity.x = move_toward(velocity.x, 0, current_speed) # Stop the player
@@ -132,30 +138,39 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 			if player_state != PlayerState.JUMPING: # Play idle animation only if player isn't jumping
 				if player_state != PlayerState.SHOOTING: # Same for shooting
 					player_state = PlayerState.IDLE
-					play_animation("wait") # First play wait animation
-					await get_tree().create_timer(1.5)
-					play_animation("idle")
-					await get_tree().create_timer(6)
-					play_animation("sleep")
+					_idle_cooldown -= 0.01
+					if _idle_cooldown > 9.5:
+						play_animation("wait") # First play wait animation
+					elif _idle_cooldown > 3:
+						play_animation("idle")
+					else:
+						play_animation("sleep")
 	
 	if want_to_jump:
 		jump_buffer_counter = jump_buffer_time # Set buffer time when player want to jump
 	
 	if jump_buffer_counter > 0 and cayote_counter > 0 and !movements_lock: # All of condition for jump ! 
 		player_state = PlayerState.JUMPING
+		reset_idle_cooldown()
 		play_animation("jump")
 		velocity.y = jump_velocity # Apply jump
 		jump_buffer_counter = 0 # Reset jump buffer
 		cayote_counter = 0 # Reset cayote time
 		player_state = PlayerState.NOTHING
 
-	move_and_slide() # Finally, move !
+	# Turn the player with the gun
+	if player_state == PlayerState.IDLE or player_state == PlayerState.SHOOTING: # Only if idling or shooting
+		if gun.global_rotation > -1 and gun.global_rotation < 1: # If it's between -1 and 1
+			sprites.flip_h = false
+		else:
+			sprites.flip_h = true
 
 func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independant of move()
 	# Shoot bullet 1
 	if want_to_shoot_bullet_1:
 		if can_shoot_bullet_1:
 			player_state = PlayerState.SHOOTING
+			reset_idle_cooldown()
 			camera_shake(1.5, 1.0, 10) # Start a camera shake
 			play_animation("shoot_bullet_1")
 			# Shoot bullet
@@ -164,7 +179,8 @@ func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independ
 			_bullet_1.position = gun_tip.global_position # Set position of the bullet
 			_bullet_1.rotation =  gun_tip.global_rotation # Same for rotation
 			get_tree().current_scene.add_child(_bullet_1) # Add bullet to player's scene
-			bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * bullet_1_force) # Propulse bullet 
+			_bullet_1.add_to_group(player_name)
+			_bullet_1.apply_central_impulse(Vector2(cos(angle), sin(angle)) * bullet_1_force) # Propulse bullet 
 			# Set spam cooldown
 			can_shoot_bullet_1 = false
 			await get_tree().create_timer(spam_delay_bullet_1).timeout
@@ -175,12 +191,14 @@ func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independ
 	if want_to_shoot_bullet_2:
 		if can_shoot_bullet_2:
 			player_state = PlayerState.SHOOTING
+			reset_idle_cooldown()
 			camera_shake(0.5, 0.5, 30) # Start a camera shake
 			play_animation("shoot_bullet_2")
 			# Shoot bullet
 			var _bullet_2 = bullet_2.instantiate() #Prefab of projectile
 			_bullet_2.position = gun_tip.global_position
 			get_tree().current_scene.add_child(_bullet_2)
+			_bullet_2.add_to_group(player_name)
 			bullet_2.apply_central_force(Vector2(0, bullet_2_force))
 			# Spam cooldown
 			can_shoot_bullet_2 = false
@@ -197,14 +215,20 @@ func play_animation(animation : String) -> void: # A function to simply play an 
 func slow_friction(delta) -> void: # Just apply a friction to player's movement
 	velocity.x -= .02 * delta # I can't explain this line sorry..
 
-func set_player_position(position): # Simply set player pos
+func set_player_position(position) -> void: # Simply set player pos
 	global_position = position
 
-func set_respawn_position(position):  # Simply set the respawn position 
+func set_respawn_position(position) -> void:  # Simply set the respawn position 
 	respawn_position = position
+
+func get_player_state() -> String:
+	return player_state
 
 func respawn_player(): # Simply respawn the player to the s set_respawn_position()'s location
 	global_position = respawn_position
+
+func reset_idle_cooldown(): # Reset the player's idle cooldown in one function
+	_idle_cooldown = IDLE_COOLDOWN
 
 # -- CAMERA EFFECTS --
 func camera_shake(intensity : float = 1.5, duration : float  = 1.0, decay : float = 1.0) -> void: # Passerel between player.gd and camera.gd for shakes
@@ -212,8 +236,5 @@ func camera_shake(intensity : float = 1.5, duration : float  = 1.0, decay : floa
 
 func camera_rotation(angle : float) -> void: # Same for rotation
 	camera.perform_rotation(angle) # Same
-
-func set_camera_follow(want_to_follow : bool, object_to_follow : Node, camera_speed : float) -> void: # Same for camera following object
-	camera.set_follow(want_to_follow, object_to_follow, camera_speed) # Same
 
 #endregion

@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 func _on_body_entered(body:Node2D) -> void:
 	if body is Ball:
 		print("goal !")
-		ball .stop_ball()
+		ball.stop_ball()
 		await get_tree().create_timer(2.0).timeout
 		ball.restart_ball()
 		
