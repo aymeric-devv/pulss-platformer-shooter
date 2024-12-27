@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var propulsion_force : float = 5
+@export var propulsion_force : float = 10
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("can_be_propulsed"):

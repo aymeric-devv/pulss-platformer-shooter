@@ -7,6 +7,11 @@ extends RigidBody2D
 const STOP_GRAVITY = 0
 var last_player_touch_ball
 
+#func _physics_process(delta: float) -> void:
+	#linear_velocity.y = clamp_veloc(linear_velocity.y, -500, 500)
+	#print(linear_velocity.y)
+	# min(900, angular_velocity.y)
+	
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
 		last_player_touch_ball = body
@@ -23,3 +28,14 @@ func restart_ball():
 		
 	else:
 		apply_central_force(Vector2(10, -5) * push_forces_restart)
+
+func clamp_veloc(val: float, min: float, max: float) -> float: # My custom clamp() function
+	if val > max:
+		val = max 
+	elif val < min:
+		val = min
+	return val	
+	
+	
+	
+	
