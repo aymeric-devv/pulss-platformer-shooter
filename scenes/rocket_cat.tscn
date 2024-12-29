@@ -637,8 +637,8 @@ physics_layer_1/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_e237h")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5aivl"]
-friction = 0.0
-bounce = 50.0
+friction = 0.2
+bounce = 5.0
 
 [node name="Rocket_cat" type="Node2D"]
 
@@ -678,7 +678,7 @@ ball = NodePath("../../../Ball")
 
 [node name="Ball" parent="." instance=ExtResource("2_h5ok5")]
 position = Vector2(0, -33)
-mass = 0.1
+mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_5aivl")
 gravity_scale = 0.2
 

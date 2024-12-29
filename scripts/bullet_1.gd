@@ -7,7 +7,8 @@ func _physics_process(delta: float) -> void:
 	pass
 	
 func _on_body_entered(body: Node) -> void:
-	if body is Player:
+	if body is Player or body is Ball:
+		await get_tree().create_timer(0.1).timeout
 		queue_free() # Touched Player !
 	else:
 		await get_tree().create_timer(2).timeout

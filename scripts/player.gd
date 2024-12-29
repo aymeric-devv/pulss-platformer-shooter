@@ -34,9 +34,10 @@ var jump_buffer_counter : int = 0 # Count jumps for jump buffer
 var cayote_counter : int = 0 # Count cayote time
 # -- Bullets --
 @export_group("Bullets")
+@export var auto_shoot: bool = true
 @export var bullet_1_force: float = 200 # Force to shoot bullet 1
 @export var bullet_2_force: float = 0.1 # Same for bullet 2
-@export var spam_delay_bullet_1: float = 0.5 # Small cooldown to prevent spam
+@export var spam_delay_bullet_1: float = 0.4 if !auto_shoot else 0.2 # Small cooldown to prevent spam for both shoot mode
 @export var spam_delay_bullet_2: float = 0.15 # Same for bullet 2
 #var BULLET_1 = preload("res://scenes/bullets/bullet_1.tscn") #Preload the bullet 1
 #var BULLET_2 = preload("res://scenes/bullets/bullet_2.tscn") #Same for bullet 2
@@ -91,7 +92,6 @@ func _physics_process(delta):
 	if !movements_lock:
 		move(delta) # Just move the player according inputs, including movements, jump and dash
 		shoot() # A function to manage player's shoots  
-	print(player_state)
 	move_and_slide() # Finally, move !
 
 # ** USEFUL FUNCTIONS **
@@ -99,7 +99,7 @@ func get_inputs() -> void: # Get inputs and store them in input variables
 	direction = Input.get_axis("move_left", "move_right") # Get the direction, -1, 0, 1
 	want_to_jump = Input.is_action_just_pressed("jump") # Bool for jump
 	want_to_dash = Input.is_action_just_pressed("dash") # Same dash
-	want_to_shoot_bullet_1 = Input.is_action_just_pressed("bullet_1_shoot") # Same for bullet 1
+	want_to_shoot_bullet_1 = Input.is_action_pressed("bullet_1_shoot") if auto_shoot else Input.is_action_just_pressed("bullet_1_shoot") # If auto shoot enable, check if player is pressing the shoot key, or if he has just pressed 
 	want_to_shoot_bullet_2 = Input.is_action_just_pressed("bullet_2_shoot") # Same for bullet 2
 
 func move(delta) -> void: # Get inputs from get_inputs() to perform the requested movement
