@@ -15,11 +15,16 @@ var player_name : String = "Aymeric-devv"
 # ** MOVEMENTS & SHOOT **
 # -- Simple moves --
 @export_group("Moves")
+var auto_jump : bool = true
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var SPEED : int = 80 # Speed
 @export var IN_AIR_SPEED : int = 60 # In-air speed
 var current_speed : int # Where the speed is stored
 var last_moved_dir : float = 0 # Where the last direction where player wanted to go. Can be -1 or 1
+# -- Dash --
+@export_group("Dash")
+var dash_count : int = 0
+@export var dash_restore_delay : float = 2 # Spam prevention
 # -- Jump --
 @export_group("Jump")
 @export var jump_height: int = 15
@@ -34,11 +39,12 @@ var jump_buffer_counter : int = 0 # Count jumps for jump buffer
 var cayote_counter : int = 0 # Count cayote time
 # -- Bullets --
 @export_group("Bullets")
-@export var auto_shoot: bool = true
+@export var auto_shoot_bullet_1 : bool = true
+@export var auto_shoot_bullet_2 : bool = true
 @export var bullet_1_force: float = 200 # Force to shoot bullet 1
 @export var bullet_2_force: float = 0.1 # Same for bullet 2
-@export var spam_delay_bullet_1: float = 0.4 if !auto_shoot else 0.2 # Small cooldown to prevent spam for both shoot mode
-@export var spam_delay_bullet_2: float = 0.15 # Same for bullet 2
+@export var spam_delay_bullet_1: float = 0.4 if !auto_shoot_bullet_1 else 0.2 # Small cooldown to prevent spam for both shoot mode
+@export var spam_delay_bullet_2: float = 0.15 # Same for bullet 2 but not change the delay
 #var BULLET_1 = preload("res://scenes/bullets/bullet_1.tscn") #Preload the bullet 1
 #var BULLET_2 = preload("res://scenes/bullets/bullet_2.tscn") #Same for bullet 2
 var can_shoot_bullet_1 : bool = true #A bool to know if player can shoot the bullet 1
@@ -60,7 +66,8 @@ enum PlayerState { # Enum for player's state
 	DASHING,
 	SHOOTING,
 	FLYING,
-	FALLING
+	FALLING,
+	AIMING
 }
 var player_state = PlayerState.IDLE # Where the player's state from the enum will be stored
 var prev_player_state = player_state # Just store the prev player's state
@@ -92,20 +99,24 @@ func _physics_process(delta):
 	if !movements_lock:
 		move(delta) # Just move the player according inputs, including movements, jump and dash
 		shoot() # A function to manage player's shoots  
-	move_and_slide() # Finally, move !
-
+	# Finally, move !
+	print(player_state)
+	move_and_slide() 
+	
 # ** USEFUL FUNCTIONS **
 func get_inputs() -> void: # Get inputs and store them in input variables
 	direction = Input.get_axis("move_left", "move_right") # Get the direction, -1, 0, 1
-	want_to_jump = Input.is_action_just_pressed("jump") # Bool for jump
+	want_to_jump = Input.is_action_pressed("jump") if auto_jump else Input.is_action_just_pressed("jump") # Bool for jump like bullets (for automatic system)
 	want_to_dash = Input.is_action_just_pressed("dash") # Same dash
-	want_to_shoot_bullet_1 = Input.is_action_pressed("bullet_1_shoot") if auto_shoot else Input.is_action_just_pressed("bullet_1_shoot") # If auto shoot enable, check if player is pressing the shoot key, or if he has just pressed 
-	want_to_shoot_bullet_2 = Input.is_action_just_pressed("bullet_2_shoot") # Same for bullet 2
+	want_to_shoot_bullet_1 = Input.is_action_pressed("bullet_1_shoot") if auto_shoot_bullet_1 else Input.is_action_just_pressed("bullet_1_shoot") # If auto shoot enable, check if player is pressing the shoot key, or if he has just pressed 
+	want_to_shoot_bullet_2 = Input.is_action_pressed("bullet_2_shoot") if auto_shoot_bullet_2 else Input.is_action_just_pressed("bullet_2_shoot")  # Same for bullet 2
 
 func move(delta) -> void: # Get inputs from get_inputs() to perform the requested movement
 	if is_on_floor(): # First check if player is on floor or not to do some things
 		current_speed = SPEED # Set on floor speed
 		cayote_counter = cayote_time # Start cayote timer
+		if dash_count >= 2:
+			dash_count = 0 # Reset dash count
 	else:
 		current_speed = IN_AIR_SPEED # Set in-air speed
 		velocity.y += get_current_gravity() * delta
@@ -142,7 +153,7 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 		velocity.x = move_toward(velocity.x, 0, current_speed) # Stop the player
 		if is_on_floor(): # Check if player is idle in-air or not
 			if player_state != PlayerState.JUMPING: # Play idle animation only if player isn't jumping
-				if player_state != PlayerState.SHOOTING: # Same for shooting
+				if player_state != PlayerState.SHOOTING: # Same for shooting and aiming
 					player_state = PlayerState.IDLE
 					_idle_cooldown -= 0.01
 					if _idle_cooldown > 9.5:
@@ -151,6 +162,15 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 						play_animation("idle")
 					else:
 						play_animation("sleep")
+	
+	if want_to_dash: # Dash
+		if dash_count <= 2: # Player can dash twice in air
+			player_state = PlayerState.DASHING
+			reset_idle_cooldown()
+			velocity = get_global_mouse_position() - global_position
+			dash_count += 1 # Add 1 to dash count
+	
+
 	
 	if player_state == PlayerState.NOTHING and is_on_floor(): # TODO : jump2 animation conflict
 		player_state = PlayerState.IDLE
@@ -167,13 +187,33 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 		cayote_counter = 0 # Reset cayote time
 		player_state = PlayerState.NOTHING
 
+	
 	# Turn the player with the gun
 	if player_state == PlayerState.IDLE or player_state == PlayerState.SHOOTING: # Only if idling or shooting
-		if gun.global_rotation > -1 and gun.global_rotation < 1: # If it's between -1 and 1
-			sprites.flip_h = false
+		if player_state != PlayerState.SHOOTING: # Prevent animations conflic
+			player_state = PlayerState.IDLE 
+		
+		var gun_rot = gun.global_rotation # Store the rotation of the gun
+		if gun_rot > -1 and gun_rot < 1: # If it's between -1 and 1
+			sprites.flip_h = false # Flip the player to be oriented to gun
 		else:
 			sprites.flip_h = true
-
+		if velocity.x == 0: # Only if player doesn't move
+			if gun_rot <= -1 && gun_rot >= -1.9: # Orient the player verticaly to the gun
+				global_rotation_degrees = 90 
+				reset_idle_cooldown()
+			else:
+				global_rotation_degrees = 0
+			
+	if player_state != PlayerState.AIMING && global_rotation_degrees != 0: # Reset the orientation of player
+		var delay = 1
+		if velocity.x != 0: # If player is moving, qickly restore orientation
+			delay = 0.1
+		else:
+			delay = 1
+		await get_tree().create_timer(1).timeout # After 1s
+		global_rotation_degrees = 0
+	
 func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independant of move()
 	# Shoot bullet 1
 	if want_to_shoot_bullet_1:
