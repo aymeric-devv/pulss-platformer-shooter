@@ -15,7 +15,7 @@ var player_name : String = "Aymeric-devv"
 # ** MOVEMENTS & SHOOT **
 # -- Simple moves --
 @export_group("Moves")
-var auto_jump : bool = true
+
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var SPEED : int = 80 # Speed
 @export var IN_AIR_SPEED : int = 60 # In-air speed
@@ -24,9 +24,11 @@ var last_moved_dir : float = 0 # Where the last direction where player wanted to
 # -- Dash --
 @export_group("Dash")
 var dash_count : int = 0
+var dashing : bool = false
 @export var dash_restore_delay : float = 2 # Spam prevention
 # -- Jump --
 @export_group("Jump")
+@export var auto_jump : bool = true
 @export var jump_height: int = 15
 @export var jump_buffer_time : int  = 20  # Time for jump buffer
 @export var cayote_time : int = 15 # Coyote time
@@ -100,7 +102,7 @@ func _physics_process(delta):
 		move(delta) # Just move the player according inputs, including movements, jump and dash
 		shoot() # A function to manage player's shoots  
 	# Finally, move !
-	print(player_state)
+	print(auto_jump)
 	move_and_slide() 
 	
 # ** USEFUL FUNCTIONS **
@@ -167,10 +169,10 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 		if dash_count <= 2: # Player can dash twice in air
 			player_state = PlayerState.DASHING
 			reset_idle_cooldown()
-			velocity = get_global_mouse_position() - global_position
+			velocity = Vector2.ZERO
+			velocity = (gun_tip.global_position - global_position) * 20
 			dash_count += 1 # Add 1 to dash count
 	
-
 	
 	if player_state == PlayerState.NOTHING and is_on_floor(): # TODO : jump2 animation conflict
 		player_state = PlayerState.IDLE
@@ -192,27 +194,11 @@ func move(delta) -> void: # Get inputs from get_inputs() to perform the requeste
 	if player_state == PlayerState.IDLE or player_state == PlayerState.SHOOTING: # Only if idling or shooting
 		if player_state != PlayerState.SHOOTING: # Prevent animations conflic
 			player_state = PlayerState.IDLE 
-		
 		var gun_rot = gun.global_rotation # Store the rotation of the gun
 		if gun_rot > -1 and gun_rot < 1: # If it's between -1 and 1
-			sprites.flip_h = false # Flip the player to be oriented to gun
+			sprites.flip_h = true # Flip the player to be oriented to gun
 		else:
-			sprites.flip_h = true
-		if velocity.x == 0: # Only if player doesn't move
-			if gun_rot <= -1 && gun_rot >= -1.9: # Orient the player verticaly to the gun
-				global_rotation_degrees = 90 
-				reset_idle_cooldown()
-			else:
-				global_rotation_degrees = 0
-			
-	if player_state != PlayerState.AIMING && global_rotation_degrees != 0: # Reset the orientation of player
-		var delay = 1
-		if velocity.x != 0: # If player is moving, qickly restore orientation
-			delay = 0.1
-		else:
-			delay = 1
-		await get_tree().create_timer(1).timeout # After 1s
-		global_rotation_degrees = 0
+			sprites.flip_h = false
 	
 func shoot() -> void: # Get inputs from get_inputs() to perform shoots, independant of move()
 	# Shoot bullet 1

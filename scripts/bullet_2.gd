@@ -12,6 +12,6 @@ func _process(delta: float) -> void:
 		queue_free() # Dispawn !
 
 func _on_body_exited(body: Node) -> void:
-	if body.is_in_group("player"): # Else if it's touch a player it start an other timer
+	if body is Player: # Else if it's touch a player it start an other timer
 		await get_tree().create_timer(dispawn_cooldown).timeout
 		need_to_dispawn = true

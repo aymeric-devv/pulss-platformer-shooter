@@ -448,21 +448,24 @@ animation = &"in-air"
 autoplay = "idle"
 frame_progress = 0.350249
 
+[node name="Gun" type="Node2D" parent="."]
+physics_interpolation_mode = 2
+position = Vector2(-0.999978, -5)
+scale = Vector2(1, 1)
+script = ExtResource("3_tylyn")
+
+[node name="Sprite" type="Sprite2D" parent="Gun"]
+position = Vector2(-13, -5.6847e-05)
+rotation = 3.14159
+texture = ExtResource("4_ij8kj")
+
+[node name="Tip" type="Marker2D" parent="Gun"]
+position = Vector2(-5, -2.24113e-05)
+rotation = -3.14159
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 rotation = -1.56706
 shape = SubResource("CapsuleShape2D_i8k75")
-
-[node name="Gun" type="Node2D" parent="."]
-position = Vector2(-1, -5)
-script = ExtResource("3_tylyn")
-
-[node name="Sprite" type="Sprite2D" parent="Gun"]
-position = Vector2(5, 0)
-texture = ExtResource("4_ij8kj")
-
-[node name="Tip" type="Marker2D" parent="Gun"]
-position = Vector2(9.00002, 3.58106e-05)
-rotation = -0.00319641
 
 [node name="Bullets" type="Node2D" parent="."]
