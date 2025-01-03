@@ -1,1 +1,46 @@
-refqfdSQDFMYPIEIKGOPKLMKMQKGMG
+ProjectManager.txt
+           
+     /$$$$$$$              /$$                          
+    | $$__  $$            | $$                          
+    | $$  \ $$  /$$   /$$ | $$   /$$$$$$$   /$$$$$$$    
+    | $$$$$$$/ | $$  | $$ | $$  /$$_____/  /$$_____/    
+    | $$____/  | $$  | $$ | $$ |  $$$$$$  |  $$$$$$     
+    | $$       | $$  | $$ | $$  \____  $$  \____  $$    
+    | $$       |  $$$$$$/ | $$  /$$$$$$$/  /$$$$$$$/    
+    |__/        \______/  |__/ |_______/  |_______/     
+                                                      
+"Pulss, an original, hard, local multiplayer and free game made with love in Godot"
+
+
+
+ --  TODOS 🧨 ---------------------------------- 
+
+ # DOING 👀 ######## 
+
+- Medium keyboard only control : aim, etc
+
+
+ # TODOS 💖 ########
+
+- 7 Easy nuttons to switch levels in home
+- 5 Easy pixel art : buttons, "rocket league 2version with cats"
+- 6 Hard settings : autojump, wich player.tscn use
+- Medium music & sfx
+- ** move repo to  hard disk
+
+
+ # POLISHING ✨ ########
+
+- Hard better dash system
+
+
+
+-- NOTES 📜 ---------------------------------- 
+
+- settings are applied to current player.tscn
+
+
+
+ -- IDEAS 💡 ----------------------------------
+              
+ - split views 4 players (four player.tscn, only one in home with change what player.tscn is playing)
