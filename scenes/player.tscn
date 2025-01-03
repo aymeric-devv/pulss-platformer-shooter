@@ -451,7 +451,6 @@ frame_progress = 0.350249
 [node name="Gun" type="Node2D" parent="."]
 physics_interpolation_mode = 2
 position = Vector2(-0.999978, -5)
-scale = Vector2(1, 1)
 script = ExtResource("3_tylyn")
 
 [node name="Sprite" type="Sprite2D" parent="Gun"]

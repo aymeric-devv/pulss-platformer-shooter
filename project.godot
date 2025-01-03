@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="Platformer Shooter"
-config/version="3.2"
-run/main_scene="res://scenes/levels/home.tscn"
+config/description="\"Pulss\", an original, hard and open-source platformer shooter game made with Godot."
+config/version="3.3"
+run/main_scene="res://scenes/game_manager.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/minimum_display_time=500
 
 [global_group]
 
