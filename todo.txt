@@ -9,7 +9,7 @@ ProjectManager.txt
     | $$       |  $$$$$$/ | $$  /$$$$$$$/  /$$$$$$$/    
     |__/        \______/  |__/ |_______/  |_______/     
                                                       
-"Pulss, an original, hard, local multiplayer and free game made with love in Godot"
+"Pulss, your original, hard, local multiplayer and free game made with love in Godot"
 
 
 
@@ -44,3 +44,5 @@ ProjectManager.txt
  -- IDEAS 💡 ----------------------------------
               
  - split views 4 players (four player.tscn, only one in home with change what player.tscn is playing)
+ - tiny singleplayers levels
+ - community games & map

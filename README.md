@@ -1,5 +1,5 @@
 # ⚡ Pulss
-> ### *"Your free, open-source and original platformer shooter game"*
+> ### *"Pulss, an original, hard, local multiplayer and free game made with love in Godot"*
 
 >  [!IMPORTANT]
 > **Play to this game in your browser in Itch.io !**  
@@ -7,13 +7,12 @@
 >
 ## 📜 Features
 - **Original** gameplay
-- Fast **movements** with for example a god bridge mechanic
+- **Hard a fast** movements
 - **Funny** weapons
-- **Cute** cat
-- **Multiplayer** with minigames like rocket cat; angry cat, etc *(in developpement)*
+- **Cute** cats
+- **Local multiplayer up to 4 players** with minigames like rocket cat; angry cat, etc *(in developpement)*
 - Community **maps** *(coming soon)*
 - **Singleplayer** levels *(coming soon)*
-- **Local** multiplayer and collab *(coming soon)*
   
 ## 📸 Preview
 ![Capture d’écran 2024-12-10 192429](https://github.com/user-attachments/assets/72d1880c-0cbc-489d-8789-a86ea0c3cb2f)
@@ -26,7 +25,7 @@ https://github.com/user-attachments/assets/e80820cd-7349-407f-8d22-3c2d66349779
 
 
 ## 💾 How to play
-You can play with the `arrows` of your keyboard and you can jump with `space`.
+Since movements are in developpements, there is no tutorial for now..
 > [!IMPORTANT]
 > This tiny tutorial work for all version will be created.
 > 
@@ -62,17 +61,12 @@ You can download it where you want.*
 > [!TIP]
 > You can watch the wiki, for mecanics and all of things wich you can learn about the game.
 > 
-## 📣 Updates
-> [!IMPORTANT]
-> Dates are french formatted.
->
 
-| Dates | What's added |
-|---|---|
-| 10.12.24 -> ... | Work on SFX and music, dash, rocket cat game, and more. |
 ## 🛠 How to simply edit the project like you want
+Download source or clone repository and open project.godot in godot 4 !
 
 ## 💬 Questions
+0 for now..
 
 ## 💌 Thanks
 #### **To Ethlen**, 

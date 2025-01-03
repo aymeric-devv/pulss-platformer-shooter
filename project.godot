@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Platformer Shooter"
-config/version="3.2"
-run/main_scene="res://scenes/levels/home.tscn"
+config/name="Pulss"
+config/version="3.3"
+run/main_scene="res://scenes/game_manager.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [global_group]
